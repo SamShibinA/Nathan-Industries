@@ -5,6 +5,7 @@ import { Gallery } from '../models/Gallery.js';
 import { AppError } from '../utils/AppError.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { sendResponse } from '../utils/responseHandler.js';
+import { deleteFromCloudinary } from '../config/cloudinary.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -158,12 +159,16 @@ export const deleteGalleryItem = asyncHandler(async (req, res, next) => {
   }
 
   if (item.imageUrl) {
-    const fullPath = path.resolve(__dirname, '../../', item.imageUrl.replace(/^\//, ''));
-    if (fs.existsSync(fullPath)) {
-      try {
-        fs.unlinkSync(fullPath);
-      } catch (err) {
-        console.warn(`Failed to delete gallery image: ${fullPath}`);
+    if (item.imageUrl.includes('cloudinary.com')) {
+      await deleteFromCloudinary(item.imageUrl);
+    } else {
+      const fullPath = path.resolve(__dirname, '../../', item.imageUrl.replace(/^\//, ''));
+      if (fs.existsSync(fullPath)) {
+        try {
+          fs.unlinkSync(fullPath);
+        } catch (err) {
+          console.warn(`Failed to delete gallery image: ${fullPath}`);
+        }
       }
     }
   }

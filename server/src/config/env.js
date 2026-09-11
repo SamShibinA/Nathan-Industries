@@ -16,6 +16,9 @@ export const env = {
   UPLOAD_PATH: process.env.UPLOAD_PATH || 'uploads',
   NODE_ENV: process.env.NODE_ENV || 'development',
   isProduction: process.env.NODE_ENV === 'production',
+  CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME || 'fpbcpccp',
+  CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY || '555652249841283',
+  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET || 'hQdIDneTDYfzFe15I70bqduwtR4',
 };
 
 // Validate critical variables in production

@@ -1,16 +1,10 @@
 import multer from 'multer';
 import sharp from 'sharp';
-import path from 'path';
-import fs from 'fs';
-import { fileURLToPath } from 'url';
 import { AppError } from '../utils/AppError.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
-import { env } from '../config/env.js';
+import { uploadStreamToCloudinary } from '../config/cloudinary.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Memory storage for Sharp buffer processing
+// Memory storage for buffer processing
 const storage = multer.memoryStorage();
 
 // File filter for images and PDF documents
@@ -70,15 +64,10 @@ export const uploadGalleryImage = upload.fields([
 ]);
 
 /**
- * Middleware: Process uploaded Product images with Sharp
+ * Middleware: Process uploaded Product images and upload to Cloudinary
  */
 export const processProductImages = asyncHandler(async (req, res, next) => {
   if (!req.files) return next();
-
-  const uploadDir = path.resolve(__dirname, '../../uploads/products');
-  if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
-  }
 
   req.processedFiles = {
     coverImage: null,
@@ -86,56 +75,59 @@ export const processProductImages = asyncHandler(async (req, res, next) => {
     brochure: null,
   };
 
+  // 1. Process Product Cover Image
   if (req.files.coverImage && req.files.coverImage[0]) {
     const file = req.files.coverImage[0];
-    const filename = `product-cover-${Date.now()}-${Math.random().toString(36).substr(2, 6)}.webp`;
-    const outputPath = path.join(uploadDir, filename);
-
-    await sharp(file.buffer)
+    const optimizedBuffer = await sharp(file.buffer)
       .resize(1600, 1200, { fit: 'inside', withoutEnlargement: true })
       .webp({ quality: 85, effort: 4 })
-      .toFile(outputPath);
+      .toBuffer();
 
-    req.processedFiles.coverImage = `/${env.UPLOAD_PATH}/products/${filename}`;
+    const uploadResult = await uploadStreamToCloudinary(optimizedBuffer, {
+      folder: 'nathan_industries/products',
+      resource_type: 'image',
+    });
+
+    req.processedFiles.coverImage = uploadResult.secure_url;
   }
 
+  // 2. Process Product Additional Images
   if (req.files.images && req.files.images.length > 0) {
     for (let i = 0; i < req.files.images.length; i++) {
       const file = req.files.images[i];
-      const filename = `product-gallery-${Date.now()}-${i}-${Math.random().toString(36).substr(2, 6)}.webp`;
-      const outputPath = path.join(uploadDir, filename);
-
-      await sharp(file.buffer)
+      const optimizedBuffer = await sharp(file.buffer)
         .resize(1600, 1200, { fit: 'inside', withoutEnlargement: true })
         .webp({ quality: 85, effort: 4 })
-        .toFile(outputPath);
+        .toBuffer();
 
-      req.processedFiles.images.push(`/${env.UPLOAD_PATH}/products/${filename}`);
+      const uploadResult = await uploadStreamToCloudinary(optimizedBuffer, {
+        folder: 'nathan_industries/products',
+        resource_type: 'image',
+      });
+
+      req.processedFiles.images.push(uploadResult.secure_url);
     }
   }
 
+  // 3. Process Product PDF Brochure
   if (req.files.brochure && req.files.brochure[0]) {
     const file = req.files.brochure[0];
-    const filename = `brochure-${Date.now()}-${file.originalname.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-    const outputPath = path.join(uploadDir, filename);
+    const uploadResult = await uploadStreamToCloudinary(file.buffer, {
+      folder: 'nathan_industries/documents',
+      resource_type: 'auto',
+    });
 
-    fs.writeFileSync(outputPath, file.buffer);
-    req.processedFiles.brochure = `/${env.UPLOAD_PATH}/products/${filename}`;
+    req.processedFiles.brochure = uploadResult.secure_url;
   }
 
   next();
 });
 
 /**
- * Middleware: Process uploaded Project images & documents with Sharp
+ * Middleware: Process uploaded Project images & documents and upload to Cloudinary
  */
 export const processProjectFiles = asyncHandler(async (req, res, next) => {
   if (!req.files) return next();
-
-  const uploadDir = path.resolve(__dirname, '../../uploads/projects');
-  if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
-  }
 
   req.processedProjectFiles = {
     coverImage: null,
@@ -143,46 +135,50 @@ export const processProjectFiles = asyncHandler(async (req, res, next) => {
     documents: [],
   };
 
+  // 1. Process Project Cover Image
   if (req.files.coverImage && req.files.coverImage[0]) {
     const file = req.files.coverImage[0];
-    const filename = `project-cover-${Date.now()}-${Math.random().toString(36).substr(2, 6)}.webp`;
-    const outputPath = path.join(uploadDir, filename);
-
-    await sharp(file.buffer)
+    const optimizedBuffer = await sharp(file.buffer)
       .resize(1800, 1200, { fit: 'inside', withoutEnlargement: true })
       .webp({ quality: 85, effort: 4 })
-      .toFile(outputPath);
+      .toBuffer();
 
-    req.processedProjectFiles.coverImage = `/${env.UPLOAD_PATH}/projects/${filename}`;
+    const uploadResult = await uploadStreamToCloudinary(optimizedBuffer, {
+      folder: 'nathan_industries/projects',
+      resource_type: 'image',
+    });
+
+    req.processedProjectFiles.coverImage = uploadResult.secure_url;
   }
 
+  // 2. Process Project Gallery Images
   if (req.files.galleryImages && req.files.galleryImages.length > 0) {
     for (let i = 0; i < req.files.galleryImages.length; i++) {
       const file = req.files.galleryImages[i];
-      const filename = `project-gallery-${Date.now()}-${i}-${Math.random().toString(36).substr(2, 6)}.webp`;
-      const outputPath = path.join(uploadDir, filename);
-
-      await sharp(file.buffer)
+      const optimizedBuffer = await sharp(file.buffer)
         .resize(1800, 1200, { fit: 'inside', withoutEnlargement: true })
         .webp({ quality: 85, effort: 4 })
-        .toFile(outputPath);
+        .toBuffer();
 
-      req.processedProjectFiles.galleryImages.push(
-        `/${env.UPLOAD_PATH}/projects/${filename}`
-      );
+      const uploadResult = await uploadStreamToCloudinary(optimizedBuffer, {
+        folder: 'nathan_industries/projects',
+        resource_type: 'image',
+      });
+
+      req.processedProjectFiles.galleryImages.push(uploadResult.secure_url);
     }
   }
 
+  // 3. Process Project Documents / PDFs
   if (req.files.documents && req.files.documents.length > 0) {
     for (let i = 0; i < req.files.documents.length; i++) {
       const file = req.files.documents[i];
-      const filename = `project-doc-${Date.now()}-${i}-${file.originalname.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-      const outputPath = path.join(uploadDir, filename);
+      const uploadResult = await uploadStreamToCloudinary(file.buffer, {
+        folder: 'nathan_industries/documents',
+        resource_type: 'auto',
+      });
 
-      fs.writeFileSync(outputPath, file.buffer);
-      req.processedProjectFiles.documents.push(
-        `/${env.UPLOAD_PATH}/projects/${filename}`
-      );
+      req.processedProjectFiles.documents.push(uploadResult.secure_url);
     }
   }
 
@@ -190,15 +186,10 @@ export const processProjectFiles = asyncHandler(async (req, res, next) => {
 });
 
 /**
- * Middleware: Process uploaded Gallery images with Sharp
+ * Middleware: Process uploaded Gallery images and upload to Cloudinary
  */
 export const processGalleryImages = asyncHandler(async (req, res, next) => {
   if (!req.files) return next();
-
-  const uploadDir = path.resolve(__dirname, '../../uploads/gallery');
-  if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
-  }
 
   req.processedGalleryFiles = [];
 
@@ -209,15 +200,17 @@ export const processGalleryImages = asyncHandler(async (req, res, next) => {
 
   for (let i = 0; i < rawFiles.length; i++) {
     const file = rawFiles[i];
-    const filename = `gallery-${Date.now()}-${i}-${Math.random().toString(36).substr(2, 6)}.webp`;
-    const outputPath = path.join(uploadDir, filename);
-
-    await sharp(file.buffer)
+    const optimizedBuffer = await sharp(file.buffer)
       .resize(1920, 1440, { fit: 'inside', withoutEnlargement: true })
       .webp({ quality: 85, effort: 4 })
-      .toFile(outputPath);
+      .toBuffer();
 
-    req.processedGalleryFiles.push(`/${env.UPLOAD_PATH}/gallery/${filename}`);
+    const uploadResult = await uploadStreamToCloudinary(optimizedBuffer, {
+      folder: 'nathan_industries/gallery',
+      resource_type: 'image',
+    });
+
+    req.processedGalleryFiles.push(uploadResult.secure_url);
   }
 
   next();

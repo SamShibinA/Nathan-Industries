@@ -29,15 +29,6 @@ const __dirname = path.dirname(__filename);
 // Initialize Express App
 const app = express();
 
-// Ensure upload folders exist
-const uploadSubDirs = ['products', 'projects', 'gallery', 'temp'];
-uploadSubDirs.forEach((subDir) => {
-  const dirPath = path.resolve(__dirname, '../../uploads', subDir);
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true });
-  }
-});
-
 // 1. Security Headers
 app.use(
   helmet({
@@ -80,14 +71,16 @@ app.use(requestLogger);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// 5. Static Uploads Serving
+// 5. Static Uploads Serving (Legacy fallback if local folder exists)
 const uploadRoot = path.resolve(__dirname, '../../', env.UPLOAD_PATH);
-app.use(`/${env.UPLOAD_PATH}`, express.static(uploadRoot, {
-  maxAge: '1d',
-  setHeaders: (res) => {
-    res.set('Access-Control-Allow-Origin', '*');
-  }
-}));
+if (fs.existsSync(uploadRoot)) {
+  app.use(`/${env.UPLOAD_PATH}`, express.static(uploadRoot, {
+    maxAge: '1d',
+    setHeaders: (res) => {
+      res.set('Access-Control-Allow-Origin', '*');
+    }
+  }));
+}
 
 // 6. Base Routes & API Mounting
 app.get('/', (req, res) => {

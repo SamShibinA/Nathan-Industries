@@ -206,9 +206,9 @@ export const ProductDetailPage = () => {
                 Request Plant RFQ & Drawing
               </Button>
 
-              {product.brochureUrl && (
+              {(product.brochure || product.brochureUrl) && (
                 <a
-                  href={product.brochureUrl}
+                  href={product.brochure || product.brochureUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto"

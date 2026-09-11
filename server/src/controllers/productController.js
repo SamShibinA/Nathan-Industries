@@ -5,6 +5,7 @@ import { Product } from '../models/Product.js';
 import { AppError } from '../utils/AppError.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { sendResponse } from '../utils/responseHandler.js';
+import { deleteFromCloudinary } from '../config/cloudinary.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -289,18 +290,22 @@ export const deleteProduct = asyncHandler(async (req, res, next) => {
     return next(new AppError('Product not found', 404));
   }
 
-  // Clean up physical files from disk
+  // Clean up media files (Cloudinary or local)
   const filesToDelete = [product.coverImage, ...(product.images || []), product.brochure].filter(Boolean);
-  filesToDelete.forEach((fileRelPath) => {
-    const fullPath = path.resolve(__dirname, '../../', fileRelPath.replace(/^\//, ''));
-    if (fs.existsSync(fullPath)) {
-      try {
-        fs.unlinkSync(fullPath);
-      } catch (err) {
-        console.warn(`Failed to delete physical file: ${fullPath}`);
+  for (const fileUrl of filesToDelete) {
+    if (fileUrl.includes('cloudinary.com')) {
+      await deleteFromCloudinary(fileUrl);
+    } else {
+      const fullPath = path.resolve(__dirname, '../../', fileUrl.replace(/^\//, ''));
+      if (fs.existsSync(fullPath)) {
+        try {
+          fs.unlinkSync(fullPath);
+        } catch (err) {
+          console.warn(`Failed to delete physical file: ${fullPath}`);
+        }
       }
     }
-  });
+  }
 
   await Product.findByIdAndDelete(id);
 
