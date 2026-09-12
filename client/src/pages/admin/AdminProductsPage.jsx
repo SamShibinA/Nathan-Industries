@@ -86,7 +86,7 @@ export const AdminProductsPage = () => {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
             Equipment & Machinery CMS
           </h1>
           <p className="text-xs text-slate-500 mt-1">
@@ -99,7 +99,7 @@ export const AdminProductsPage = () => {
           size="md"
           onClick={handleOpenCreate}
           icon={HiPlus}
-          className="font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-600/20"
+          className="w-full sm:w-auto font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-600/20"
         >
           Add Equipment Model
         </Button>
@@ -123,7 +123,7 @@ export const AdminProductsPage = () => {
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-red-500"
+            className="w-full sm:w-auto px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-red-500"
           >
             <option value="all">All Categories</option>
             {MACHINERY_CATEGORIES.map((c) => (

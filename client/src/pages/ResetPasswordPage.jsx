@@ -44,12 +44,12 @@ export const ResetPasswordPage = () => {
 
   return (
     <div className="w-full max-w-md mx-auto py-6">
-      <Card className="p-8 sm:p-10 border-slate-200 bg-white shadow-xl relative">
+      <Card className="p-4 sm:p-8 md:p-10 border-slate-200 bg-white shadow-xl relative">
         <div className="text-center mb-8">
           <div className="w-14 h-14 rounded-2xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center mx-auto mb-3 shadow-sm">
             <HiLockClosed className="w-7 h-7" />
           </div>
-          <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
             Set New Password
           </h2>
           <p className="text-xs text-slate-500 mt-1.5">

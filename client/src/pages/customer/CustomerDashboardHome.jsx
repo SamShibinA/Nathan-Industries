@@ -55,7 +55,7 @@ export const CustomerDashboardHome = () => {
   return (
     <div className="flex flex-col gap-6 text-slate-800">
       {/* Welcome Banner */}
-      <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white shadow-lg relative overflow-hidden">
+      <div className="p-4 sm:p-6 md:p-8 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white shadow-lg relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500 via-red-600 to-red-500" />
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
@@ -63,7 +63,7 @@ export const CustomerDashboardHome = () => {
               <HiBuildingOffice2 className="w-3.5 h-3.5" />
               <span>Enterprise Client Desk</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight text-white">
               Welcome back, {user?.name || 'Valued Client'}
             </h1>
             <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl">
@@ -71,13 +71,13 @@ export const CustomerDashboardHome = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-3 flex-shrink-0">
-            <Link to="/contact?type=quote">
+          <div className="flex items-center gap-3 flex-shrink-0 w-full md:w-auto">
+            <Link to="/contact?type=quote" className="w-full md:w-auto">
               <Button
                 variant="primary"
                 size="md"
                 icon={HiPlus}
-                className="font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white border-0 shadow-md shadow-red-600/30"
+                className="w-full md:w-auto font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white border-0 shadow-md shadow-red-600/30"
               >
                 New RFQ Quote
               </Button>
@@ -87,39 +87,39 @@ export const CustomerDashboardHome = () => {
       </div>
 
       {/* Metrics Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
         {/* Total Quotes */}
-        <Card className="p-5 bg-white border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center flex-shrink-0 border border-red-100">
-            <HiDocumentText className="w-6 h-6" />
+        <Card className="p-3.5 sm:p-5 bg-white border-slate-200 shadow-sm flex items-center gap-3.5 sm:gap-4">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center flex-shrink-0 border border-red-100">
+            <HiDocumentText className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
           <div>
             <div className="text-[10px] uppercase font-bold text-slate-400">Total RFQ Quotes</div>
-            <div className="text-2xl font-black text-slate-900">{loading ? '...' : quotes.length}</div>
+            <div className="text-xl sm:text-2xl font-black text-slate-900">{loading ? '...' : quotes.length}</div>
             <span className="text-[11px] text-slate-500">{pendingQuotes} pending review</span>
           </div>
         </Card>
 
         {/* Total Inquiries */}
-        <Card className="p-5 bg-white border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 border border-blue-100">
-            <HiEnvelope className="w-6 h-6" />
+        <Card className="p-3.5 sm:p-5 bg-white border-slate-200 shadow-sm flex items-center gap-3.5 sm:gap-4">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 border border-blue-100">
+            <HiEnvelope className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
           <div>
             <div className="text-[10px] uppercase font-bold text-slate-400">Contact Requests</div>
-            <div className="text-2xl font-black text-slate-900">{loading ? '...' : inquiries.length}</div>
+            <div className="text-xl sm:text-2xl font-black text-slate-900">{loading ? '...' : inquiries.length}</div>
             <span className="text-[11px] text-slate-500">{pendingInquiries} new</span>
           </div>
         </Card>
 
         {/* Contacted / In Review */}
-        <Card className="p-5 bg-white border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0 border border-amber-100">
-            <HiClock className="w-6 h-6" />
+        <Card className="p-3.5 sm:p-5 bg-white border-slate-200 shadow-sm flex items-center gap-3.5 sm:gap-4">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0 border border-amber-100">
+            <HiClock className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
           <div>
             <div className="text-[10px] uppercase font-bold text-slate-400">Contacted / In Progress</div>
-            <div className="text-2xl font-black text-slate-900">
+            <div className="text-xl sm:text-2xl font-black text-slate-900">
               {loading ? '...' : contactedQuotes + contactedInquiries}
             </div>
             <span className="text-[11px] text-amber-600 font-semibold">Engineers assigned</span>
@@ -127,13 +127,13 @@ export const CustomerDashboardHome = () => {
         </Card>
 
         {/* Closed / Completed */}
-        <Card className="p-5 bg-white border-slate-200 shadow-sm flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0 border border-emerald-100">
-            <HiCheckCircle className="w-6 h-6" />
+        <Card className="p-3.5 sm:p-5 bg-white border-slate-200 shadow-sm flex items-center gap-3.5 sm:gap-4">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0 border border-emerald-100">
+            <HiCheckCircle className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
           <div>
             <div className="text-[10px] uppercase font-bold text-slate-400">Resolved / Closed</div>
-            <div className="text-2xl font-black text-slate-900">
+            <div className="text-xl sm:text-2xl font-black text-slate-900">
               {loading ? '...' : closedQuotes + closedInquiries}
             </div>
             <span className="text-[11px] text-emerald-600 font-semibold">Fully completed</span>
@@ -142,9 +142,9 @@ export const CustomerDashboardHome = () => {
       </div>
 
       {/* Two Column Layout: Recent Quotes & Recent Inquiries */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Recent Quotes Card */}
-        <Card className="p-6 bg-white border-slate-200 shadow-sm flex flex-col gap-4">
+        <Card className="p-4 sm:p-6 bg-white border-slate-200 shadow-sm flex flex-col gap-4">
           <div className="flex items-center justify-between border-b border-slate-200 pb-3">
             <h3 className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
               <HiDocumentText className="w-4 h-4 text-red-600" />
@@ -186,7 +186,7 @@ export const CustomerDashboardHome = () => {
         </Card>
 
         {/* Recent Inquiries Card */}
-        <Card className="p-6 bg-white border-slate-200 shadow-sm flex flex-col gap-4">
+        <Card className="p-4 sm:p-6 bg-white border-slate-200 shadow-sm flex flex-col gap-4">
           <div className="flex items-center justify-between border-b border-slate-200 pb-3">
             <h3 className="text-sm font-extrabold text-slate-900 flex items-center gap-2">
               <HiEnvelope className="w-4 h-4 text-red-600" />
@@ -229,7 +229,7 @@ export const CustomerDashboardHome = () => {
       </div>
 
       {/* Quick Actions Footer */}
-      <Card className="p-5 bg-red-50/50 border-red-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <Card className="p-4 sm:p-5 bg-red-50/50 border-red-100 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-red-600 text-white flex items-center justify-center font-bold">
             <HiArrowDownTray className="w-5 h-5" />

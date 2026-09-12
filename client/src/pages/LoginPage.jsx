@@ -49,9 +49,9 @@ export const LoginPage = () => {
 
   return (
     <div className="w-full max-w-md mx-auto">
-      <Card className="p-6 sm:p-8 bg-white border-slate-200 shadow-xl">
+      <Card className="p-4 sm:p-6 md:p-8 bg-white border-slate-200 shadow-xl">
         <div className="text-center mb-6">
-          <h2 className="text-xl font-bold text-slate-900 tracking-tight">
+          <h2 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
             Sign In to Your Account
           </h2>
           <p className="text-xs text-slate-500 mt-1">

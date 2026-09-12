@@ -122,7 +122,7 @@ export const ProjectDetailPage = () => {
             </div>
 
             {/* Refined Title Typography */}
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight mb-2">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight mb-2">
               {project.title}
             </h1>
 
@@ -138,9 +138,9 @@ export const ProjectDetailPage = () => {
               href={project.googleMapsLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0"
+              className="flex-shrink-0 w-full sm:w-auto"
             >
-              <Button variant="outline" size="md" icon={HiArrowTopRightOnSquare} iconPosition="right" className="text-slate-800 bg-white border-slate-300 hover:border-red-400 hover:text-red-600 shadow-sm">
+              <Button variant="outline" size="md" icon={HiArrowTopRightOnSquare} iconPosition="right" className="w-full sm:w-auto text-slate-800 bg-white border-slate-300 hover:border-red-400 hover:text-red-600 shadow-sm">
                 View Site on Google Maps
               </Button>
             </a>
@@ -148,33 +148,33 @@ export const ProjectDetailPage = () => {
         </div>
 
         {/* 4 Core Metrics Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
-          <Card className="p-4 bg-white border-slate-200">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 mb-10 sm:mb-12">
+          <Card className="p-3 sm:p-4 bg-white border-slate-200">
             <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Project Output Scale</span>
-            <span className="text-base font-bold text-slate-900 font-mono">{project.projectCapacity}</span>
+            <span className="text-sm sm:text-base font-bold text-slate-900 font-mono">{project.projectCapacity}</span>
           </Card>
 
-          <Card className="p-4 bg-white border-slate-200">
+          <Card className="p-3 sm:p-4 bg-white border-slate-200">
             <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Duration & Timeline</span>
-            <span className="text-base font-bold text-red-600 font-mono">{project.duration || 'Turnkey EPC'}</span>
+            <span className="text-sm sm:text-base font-bold text-red-600 font-mono">{project.duration || 'Turnkey EPC'}</span>
           </Card>
 
-          <Card className="p-4 bg-white border-slate-200">
+          <Card className="p-3 sm:p-4 bg-white border-slate-200">
             <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Site Location</span>
-            <span className="text-base font-bold text-slate-900 truncate block">{project.location}</span>
+            <span className="text-sm sm:text-base font-bold text-slate-900 truncate block">{project.location}</span>
           </Card>
 
-          <Card className="p-4 bg-white border-slate-200">
+          <Card className="p-3 sm:p-4 bg-white border-slate-200">
             <span className="text-[10px] uppercase font-bold text-slate-400 block mb-1">Contract Execution</span>
-            <span className="text-base font-bold text-emerald-600">Class-1 Contractor</span>
+            <span className="text-sm sm:text-base font-bold text-emerald-600 truncate block">Class-1 Contractor</span>
           </Card>
         </div>
 
         {/* Narrative Description & Scope */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-14">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 mb-12 sm:mb-14">
           <div className="lg:col-span-7 flex flex-col gap-6">
-            <Card className="p-6 bg-white border-slate-200">
-              <h3 className="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
+            <Card className="p-4 sm:p-6 bg-white border-slate-200">
+              <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
                 <HiShieldCheck className="w-5 h-5 text-red-600" />
                 <span>Executive Case Study & Civil Engineering Milestones</span>
               </h3>
@@ -185,8 +185,8 @@ export const ProjectDetailPage = () => {
 
             {/* Scope of Work */}
             {project.scopeOfWork?.length > 0 && (
-              <Card className="p-6 bg-white border-slate-200">
-                <h3 className="text-base font-bold text-slate-900 mb-4">
+              <Card className="p-4 sm:p-6 bg-white border-slate-200">
+                <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-4">
                   Itemized Scope of Engineering Deliverables
                 </h3>
                 <ul className="flex flex-col gap-2.5 text-xs text-slate-600">
@@ -204,8 +204,8 @@ export const ProjectDetailPage = () => {
           <div className="lg:col-span-5 flex flex-col gap-6">
             {/* Machinery Deployed */}
             {project.machineryUsed?.length > 0 && (
-              <Card className="p-6 bg-white border-slate-200">
-                <h3 className="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <Card className="p-4 sm:p-6 bg-white border-slate-200">
+                <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
                   <HiWrenchScrewdriver className="w-5 h-5 text-red-600" />
                   <span>Machinery & Heavy Cranes Deployed</span>
                 </h3>
@@ -223,8 +223,8 @@ export const ProjectDetailPage = () => {
             )}
 
             {/* Site Address */}
-            <Card className="p-6 bg-white border-slate-200">
-              <h3 className="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
+            <Card className="p-4 sm:p-6 bg-white border-slate-200">
+              <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
                 <HiMapPin className="w-5 h-5 text-red-600" />
                 <span>Geographic Site Parameters</span>
               </h3>
@@ -252,7 +252,7 @@ export const ProjectDetailPage = () => {
           <div className="mb-14">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
               <div>
-                <h3 className="text-lg font-bold text-slate-900">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900">
                   Execution Stage Photographs & Visual Logs
                 </h3>
                 <p className="text-xs text-slate-500">

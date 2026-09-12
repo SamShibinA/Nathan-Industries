@@ -74,14 +74,14 @@ export const HistoryAndValues = () => {
           {/* Mission & Vision Column */}
           <div className="lg:col-span-5 flex flex-col gap-4">
             {/* Mission Card */}
-            <Card className="p-6 bg-slate-50 border-slate-200">
+            <Card className="p-4 sm:p-6 bg-slate-50 border-slate-200">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center shadow-sm">
                   <HiFlag className="w-5 h-5" />
                 </div>
                 <div>
                   <span className="text-[10px] uppercase font-bold text-red-600 block">Our Purpose</span>
-                  <h3 className="text-base font-bold text-slate-900">Our Mission</h3>
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900">Our Mission</h3>
                 </div>
               </div>
               <p className="text-xs text-slate-600 leading-relaxed">
@@ -90,14 +90,14 @@ export const HistoryAndValues = () => {
             </Card>
 
             {/* Vision Card */}
-            <Card className="p-6 bg-slate-50 border-slate-200">
+            <Card className="p-4 sm:p-6 bg-slate-50 border-slate-200">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 text-slate-800 flex items-center justify-center shadow-sm">
                   <HiEye className="w-5 h-5 text-red-600" />
                 </div>
                 <div>
                   <span className="text-[10px] uppercase font-bold text-slate-500 block">Long-Term Horizon</span>
-                  <h3 className="text-base font-bold text-slate-900">Our Vision</h3>
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900">Our Vision</h3>
                 </div>
               </div>
               <p className="text-xs text-slate-600 leading-relaxed">
@@ -127,12 +127,12 @@ export const HistoryAndValues = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.35, delay: idx * 0.08 }}
                 >
-                  <Card className="h-full p-6 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group">
+                  <Card className="h-full p-4 sm:p-6 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group">
                     <div>
-                      <div className="w-11 h-11 rounded-xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center mb-3 group-hover:scale-105 group-hover:bg-red-600 group-hover:text-white transition-all shadow-sm">
+                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center mb-3 group-hover:scale-105 group-hover:bg-red-600 group-hover:text-white transition-all shadow-sm">
                         <Icon className="w-5 h-5" />
                       </div>
-                      <h3 className="text-sm font-bold text-slate-900 group-hover:text-red-600 transition-colors mb-2">
+                      <h3 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-red-600 transition-colors mb-2">
                         {val.title}
                       </h3>
                       <p className="text-xs text-slate-600 leading-relaxed">

@@ -177,11 +177,11 @@ export const ContactPage = () => {
           subtitle="Speak with our plant design consultants for equipment sizing, crushing capacity estimation, or project execution tenders."
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
           {/* ── Left Column: Company Information ── */}
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-4 sm:gap-5">
             {/* Office Address */}
-            <Card className="p-5 bg-white border-slate-200 shadow-sm">
+            <Card className="p-4 sm:p-5 bg-white border-slate-200 shadow-sm">
               <h4 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
                 <HiBuildingOffice2 className="w-4 h-4 text-red-600" />
                 Corporate Office
@@ -193,7 +193,7 @@ export const ContactPage = () => {
             </Card>
 
             {/* Factory Address */}
-            <Card className="p-5 bg-white border-slate-200 shadow-sm">
+            <Card className="p-4 sm:p-5 bg-white border-slate-200 shadow-sm">
               <h4 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
                 <HiWrenchScrewdriver className="w-4 h-4 text-red-600" />
                 Manufacturing Plant
@@ -205,7 +205,7 @@ export const ContactPage = () => {
             </Card>
 
             {/* Phone, Email, Hours */}
-            <Card className="p-5 bg-white border-slate-200 shadow-sm flex flex-col gap-3">
+            <Card className="p-4 sm:p-5 bg-white border-slate-200 shadow-sm flex flex-col gap-3">
               <div className="flex items-center gap-3 text-xs text-slate-700">
                 <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
                   <HiPhone className="w-4 h-4 text-red-600" />
@@ -259,12 +259,12 @@ export const ContactPage = () => {
             </Card>
 
             {/* Social Links */}
-            <Card className="p-5 bg-white border-slate-200 shadow-sm">
+            <Card className="p-4 sm:p-5 bg-white border-slate-200 shadow-sm">
               <h4 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
                 <HiGlobeAlt className="w-4 h-4 text-red-600" />
                 Connect With Us
               </h4>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
                 <a
                   href="https://wa.me/919876543210"
                   target="_blank"
@@ -296,7 +296,7 @@ export const ContactPage = () => {
             </Card>
 
             {/* Emergency Card */}
-            <Card className="p-5 bg-red-50 border-red-200">
+            <Card className="p-4 sm:p-5 bg-red-50 border-red-200">
               <div className="text-xs font-bold uppercase tracking-wider text-red-700 mb-1">
                 24/7 Field Breakdown Support
               </div>
@@ -315,7 +315,7 @@ export const ContactPage = () => {
             <div className="flex border-b border-slate-200">
               <button
                 onClick={() => setActiveTab('contact')}
-                className={`flex-1 px-6 py-4 text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2 ${
+                className={`flex-1 px-4 sm:px-6 py-3.5 sm:py-4 text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2 ${
                   activeTab === 'contact'
                     ? 'text-red-600 border-b-2 border-red-600 bg-red-50/50'
                     : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
@@ -326,7 +326,7 @@ export const ContactPage = () => {
               </button>
               <button
                 onClick={() => setActiveTab('quote')}
-                className={`flex-1 px-6 py-4 text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2 ${
+                className={`flex-1 px-4 sm:px-6 py-3.5 sm:py-4 text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2 ${
                   activeTab === 'quote'
                     ? 'text-red-600 border-b-2 border-red-600 bg-red-50/50'
                     : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
@@ -337,7 +337,7 @@ export const ContactPage = () => {
               </button>
             </div>
 
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
               {!isAuthenticated ? (
                 <LoginPrompt />
               ) : activeTab === 'contact' ? (
@@ -424,7 +424,7 @@ export const ContactPage = () => {
                       size="lg"
                       icon={HiPaperAirplane}
                       isLoading={contactLoading}
-                      className="font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-600/20"
+                      className="w-full sm:w-auto font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-600/20"
                     >
                       Submit Inquiry to Engineering Team
                     </Button>
@@ -514,7 +514,7 @@ export const ContactPage = () => {
                       size="lg"
                       icon={HiDocumentText}
                       isLoading={quoteLoading}
-                      className="font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-600/20"
+                      className="w-full sm:w-auto font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-600/20"
                     >
                       Submit Quote Request
                     </Button>

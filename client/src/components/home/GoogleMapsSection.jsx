@@ -17,9 +17,9 @@ export const GoogleMapsSection = () => {
               <Badge variant="red" size="md" className="mb-2">
                 Factory & Works Complex
               </Badge>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
-                Visit Our 15-Acre Heavy Manufacturing Complex
-              </h2>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              Visit Our 15-Acre Heavy Manufacturing Complex
+            </h2>
             </div>
 
             <p className="text-xs text-slate-600 leading-relaxed">

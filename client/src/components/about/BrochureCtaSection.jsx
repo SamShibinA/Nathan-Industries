@@ -30,17 +30,17 @@ export const BrochureCtaSection = () => {
   return (
     <section className="py-16 bg-white">
       <Container>
-        <Card className="p-8 sm:p-12 bg-slate-50 border-slate-200 relative overflow-hidden shadow-sm">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+        <Card className="p-5 sm:p-8 md:p-12 bg-slate-50 border-slate-200 relative overflow-hidden shadow-sm">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center relative z-10">
             {/* Left Content */}
-            <div className="lg:col-span-8 flex flex-col gap-4">
+            <div className="lg:col-span-8 flex flex-col gap-3 sm:gap-4">
               <div>
                 <Badge variant="red" size="md" icon={HiShieldCheck}>
                   Official Engineering Document
                 </Badge>
               </div>
 
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
                 Download the Complete NathanIndustries Corporate & Technical Catalog
               </h2>
 
@@ -60,7 +60,7 @@ export const BrochureCtaSection = () => {
             </div>
 
             {/* Right Action Box */}
-            <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-2xl bg-white border border-slate-200 text-center shadow-sm">
+            <div className="lg:col-span-4 flex flex-col items-center justify-center p-4 sm:p-6 rounded-2xl bg-white border border-slate-200 text-center shadow-sm">
               <div className="w-14 h-14 rounded-2xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center mb-4">
                 <HiDocumentText className="w-7 h-7" />
               </div>

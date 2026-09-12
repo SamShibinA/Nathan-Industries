@@ -4,9 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   HiXMark, 
   HiPhone, 
-  HiEnvelope, 
   HiDocumentText, 
-  HiUser, 
   HiArrowRightOnRectangle 
 } from 'react-icons/hi2';
 
@@ -19,6 +17,10 @@ export const MobileDrawer = ({ isOpen, onClose }) => {
   const { user, isAuthenticated, logout } = useAuth();
 
   if (!isOpen) return null;
+
+  const isPortalActive = user?.role === 'admin'
+    ? location.pathname.startsWith('/admin')
+    : location.pathname.startsWith('/dashboard');
 
   return (
     <AnimatePresence>
@@ -67,45 +69,87 @@ export const MobileDrawer = ({ isOpen, onClose }) => {
             {/* Direct Navigation Links */}
             <div className="flex flex-col gap-1.5">
               {NAV_LINKS.map((link) => {
-                const isActive = location.pathname === link.path;
+                const isActive = link.path === '/' 
+                  ? location.pathname === '/' 
+                  : location.pathname.startsWith(link.path);
 
                 return (
                   <Link
                     key={link.name}
                     to={link.path}
                     onClick={onClose}
-                    className={`p-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors ${
+                    className={`p-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-between ${
                       isActive
                         ? 'bg-red-50 text-red-600 border border-red-200 font-extrabold'
                         : 'text-slate-700 hover:bg-slate-100 hover:text-red-600'
                     }`}
                   >
-                    {link.name}
+                    <span>{link.name}</span>
                   </Link>
                 );
               })}
-            </div>
-            {/* Authenticated User Quick Navigation */}
-            {isAuthenticated && (
-              <div className="mt-4 p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between">
+
+              {/* Direct My Actions Link for Mobile */}
+              {isAuthenticated && (
                 <Link
                   to={user?.role === 'admin' ? '/admin' : '/dashboard'}
                   onClick={onClose}
-                  className="flex items-center gap-2 text-xs font-bold text-slate-800 hover:text-red-600 truncate"
+                  className={`p-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-between ${
+                    isPortalActive
+                      ? 'bg-red-50 text-red-600 border border-red-200 font-extrabold'
+                      : 'text-slate-700 hover:bg-slate-100 hover:text-red-600'
+                  }`}
                 >
-                  <HiUser className="w-4 h-4 text-red-600 flex-shrink-0" />
-                  <span className="truncate">{user?.name || 'Dashboard'}</span>
+                  <span>My Actions</span>
+                  <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-red-100 text-red-700 border border-red-200">
+                    {user?.role === 'admin' ? 'Admin' : 'Portal'}
+                  </span>
                 </Link>
+              )}
+            </div>
+
+            {/* User Quick Info & Sign Out / Auth Actions */}
+            {isAuthenticated ? (
+              <div className="mt-5 pt-4 border-t border-slate-200 flex items-center justify-between text-xs">
+                <div className="flex items-center gap-2 min-w-0">
+                  <div className="w-7 h-7 rounded-full bg-red-600 text-white font-bold text-[10px] flex items-center justify-center flex-shrink-0">
+                    {user?.name?.charAt(0) || 'U'}
+                  </div>
+                  <div className="flex flex-col min-w-0">
+                    <span className="font-bold text-slate-900 truncate">{user?.name}</span>
+                    <span className="text-[10px] font-mono text-red-600 font-bold uppercase">
+                      {user?.role === 'admin' ? 'Admin' : 'Client'}
+                    </span>
+                  </div>
+                </div>
                 <button
+                  type="button"
                   onClick={() => {
                     logout();
                     onClose();
                   }}
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50"
-                  title="Sign Out"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-rose-600 hover:bg-rose-50 font-semibold transition-colors"
                 >
                   <HiArrowRightOnRectangle className="w-4 h-4" />
+                  <span>Sign Out</span>
                 </button>
+              </div>
+            ) : (
+              <div className="mt-5 pt-4 border-t border-slate-200 flex items-center gap-2">
+                <Link
+                  to="/login"
+                  onClick={onClose}
+                  className="flex-1 py-2.5 rounded-xl border border-slate-300 text-slate-800 text-xs font-bold text-center hover:border-red-400 hover:text-red-600 transition-colors"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/register"
+                  onClick={onClose}
+                  className="flex-1 py-2.5 rounded-xl bg-red-50 border border-red-200 text-red-600 text-xs font-bold text-center hover:bg-red-100 transition-colors"
+                >
+                  Register
+                </Link>
               </div>
             )}
           </div>

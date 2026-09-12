@@ -47,7 +47,7 @@ export const StatsSection = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: idx * 0.06 }}
               >
-                <Card className="h-full p-6 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group">
+                <Card className="h-full p-4 sm:p-6 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group">
                   <div className="flex items-center justify-between mb-3">
                     <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center group-hover:scale-105 group-hover:bg-red-600 group-hover:text-white transition-all shadow-sm">
                       <Icon className="w-5 h-5" />
@@ -58,13 +58,13 @@ export const StatsSection = () => {
                   </div>
 
                   <div>
-                    <span className="text-3xl sm:text-4xl font-black text-red-600 tracking-tight font-mono">
+                    <span className="text-2xl sm:text-3xl lg:text-4xl font-black text-red-600 tracking-tight font-mono">
                       {stat.value}
                     </span>
-                    <h3 className="text-sm font-bold text-slate-900 group-hover:text-red-600 transition-colors mt-1 mb-1">
+                    <h3 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-red-600 transition-colors mt-1 mb-1">
                       {stat.label}
                     </h3>
-                    <p className="text-xs text-slate-600 leading-relaxed">
+                    <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed">
                       {stat.description}
                     </p>
                   </div>

@@ -85,17 +85,17 @@ export const FactoryGallerySection = () => {
               transition={{ duration: 0.35 }}
             >
               <Card
-                className="p-4 bg-white border-slate-200 group cursor-pointer hover:border-red-400 hover:shadow-md flex flex-col justify-between h-full"
+                className="p-3.5 sm:p-4 bg-white border-slate-200 group cursor-pointer hover:border-red-400 hover:shadow-md flex flex-col justify-between h-full"
                 onClick={() => setSelectedItem(item)}
               >
                 {/* Visual Area */}
                 <div>
-                  <div className="aspect-video w-full rounded-xl bg-slate-100 border border-slate-200 flex flex-col items-center justify-center p-4 relative overflow-hidden group-hover:border-red-400 transition-colors">
-                    <div className="w-11 h-11 rounded-2xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center mb-2 group-hover:scale-105 group-hover:bg-red-600 group-hover:text-white transition-all shadow-sm">
-                      <HiPhoto className="w-5 h-5" />
+                  <div className="aspect-video w-full rounded-xl bg-slate-100 border border-slate-200 flex flex-col items-center justify-center p-3 sm:p-4 relative overflow-hidden group-hover:border-red-400 transition-colors">
+                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center mb-2 group-hover:scale-105 group-hover:bg-red-600 group-hover:text-white transition-all shadow-sm">
+                      <Icon className="w-5 h-5" />
                     </div>
                     
-                    <span className="text-xs font-mono font-bold text-slate-800 group-hover:text-red-600 text-center">
+                    <span className="text-[11px] sm:text-xs font-mono font-bold text-slate-800 group-hover:text-red-600 text-center px-1">
                       {item.title}
                     </span>
 
@@ -106,12 +106,12 @@ export const FactoryGallerySection = () => {
                     </div>
                   </div>
 
-                  <div className="mt-4 flex items-center justify-between">
+                  <div className="mt-3 sm:mt-4 flex items-center justify-between">
                     <Badge variant="red" size="sm">{item.tag}</Badge>
-                    <span className="text-[11px] font-mono text-slate-500">{item.category}</span>
+                    <span className="text-[10px] sm:text-[11px] font-mono text-slate-500">{item.category}</span>
                   </div>
 
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors mt-2 mb-1">
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors mt-2 mb-1">
                     {item.title}
                   </h3>
 
@@ -120,7 +120,7 @@ export const FactoryGallerySection = () => {
                   </p>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-[11px] text-red-600 font-mono font-bold">
+                <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-[10px] sm:text-[11px] text-red-600 font-mono font-bold">
                   <span>⚙ {item.specs}</span>
                   <span className="text-slate-500 group-hover:text-red-600 transition-colors">Inspect →</span>
                 </div>

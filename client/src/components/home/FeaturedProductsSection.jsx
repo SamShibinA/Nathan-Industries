@@ -107,7 +107,7 @@ export const FeaturedProductsSection = () => {
             <Badge variant="red" size="md" className="mb-2">
               Machinery Lineup
             </Badge>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
               Featured Heavy Crushing & Sand Manufacturing Equipment
             </h2>
           </div>
@@ -118,7 +118,7 @@ export const FeaturedProductsSection = () => {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex-shrink-0 ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex-shrink-0 ${
                   activeCategory === cat.id
                     ? 'bg-red-600 text-white shadow-md shadow-red-600/20'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
@@ -142,18 +142,18 @@ export const FeaturedProductsSection = () => {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
               >
-                <Card className="h-full p-6 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group relative overflow-hidden">
+                <Card className="h-full p-4 sm:p-6 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group relative overflow-hidden">
                   <div>
                     <div className="flex items-center justify-between mb-3">
                       <Badge variant="red" size="sm">
                         {p.tag}
                       </Badge>
-                      <span className="text-xs font-mono font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+                      <span className="text-[11px] sm:text-xs font-mono font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
                         {p.id}
                       </span>
                     </div>
 
-                    <h3 className="text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors mb-2 leading-snug">
+                    <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors mb-2 leading-snug">
                       {p.name}
                     </h3>
 
@@ -162,22 +162,22 @@ export const FeaturedProductsSection = () => {
                     </p>
 
                     {/* Specs Table */}
-                    <div className="grid grid-cols-2 gap-2 p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs mb-4">
+                    <div className="grid grid-cols-2 gap-2 p-2.5 sm:p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs mb-4">
                       <div>
-                        <span className="text-[10px] uppercase font-bold text-slate-500 block">Capacity</span>
-                        <span className="font-bold text-slate-800">{p.capacity}</span>
+                        <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500 block">Capacity</span>
+                        <span className="font-bold text-slate-800 text-[11px] sm:text-xs">{p.capacity}</span>
                       </div>
                       <div>
-                        <span className="text-[10px] uppercase font-bold text-slate-500 block">Power</span>
-                        <span className="font-bold text-slate-800">{p.power}</span>
+                        <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500 block">Power</span>
+                        <span className="font-bold text-slate-800 text-[11px] sm:text-xs">{p.power}</span>
                       </div>
                       <div>
-                        <span className="text-[10px] uppercase font-bold text-slate-500 block">Feed Size</span>
-                        <span className="font-bold text-slate-800">{p.feedSize}</span>
+                        <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500 block">Feed Size</span>
+                        <span className="font-bold text-slate-800 text-[11px] sm:text-xs">{p.feedSize}</span>
                       </div>
                       <div>
-                        <span className="text-[10px] uppercase font-bold text-slate-500 block">Output</span>
-                        <span className="font-bold text-red-600">{p.output}</span>
+                        <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500 block">Output</span>
+                        <span className="font-bold text-red-600 text-[11px] sm:text-xs">{p.output}</span>
                       </div>
                     </div>
                   </div>

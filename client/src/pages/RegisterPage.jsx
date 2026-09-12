@@ -61,7 +61,7 @@ export const RegisterPage = () => {
 
   return (
     <div className="w-full">
-      <Card className="p-6 sm:p-10 bg-white border-slate-200 shadow-xl">
+      <Card className="p-4 sm:p-8 md:p-10 bg-white border-slate-200 shadow-xl">
         {/* Header */}
         <div className="text-center mb-8 pb-6 border-b border-slate-200">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-50 border border-red-200 text-red-700 font-bold text-xs mb-3">
@@ -69,7 +69,7 @@ export const RegisterPage = () => {
             <span>Official Client Portal</span>
           </div>
 
-          <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
             Client Corporate Registration
           </h2>
           <p className="text-xs text-slate-600 max-w-lg mx-auto mt-1.5 leading-relaxed">

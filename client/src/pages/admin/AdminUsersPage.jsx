@@ -67,7 +67,7 @@ export const AdminUsersPage = () => {
   return (
     <div className="flex flex-col gap-6 text-slate-800">
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
           Client & Executive User Registry
         </h1>
         <p className="text-xs text-slate-500 mt-1">

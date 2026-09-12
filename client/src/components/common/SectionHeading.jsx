@@ -9,9 +9,9 @@ export const SectionHeading = ({
   className = '',
 }) => {
   return (
-    <div className={`mb-10 ${centered ? 'text-center mx-auto' : ''} ${className}`}>
+    <div className={`mb-8 sm:mb-10 ${centered ? 'text-center mx-auto' : ''} ${className}`}>
       {badge && (
-        <div className={`mb-3 ${centered ? 'flex justify-center' : ''}`}>
+        <div className={`mb-2.5 sm:mb-3 ${centered ? 'flex justify-center' : ''}`}>
           <Badge variant="red" size="md">
             {badge}
           </Badge>
@@ -19,7 +19,7 @@ export const SectionHeading = ({
       )}
 
       {/* Balanced, clean title typography for Light Theme */}
-      <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 leading-tight mb-2.5">
+      <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 leading-tight mb-2 sm:mb-2.5">
         {title}
       </h2>
 

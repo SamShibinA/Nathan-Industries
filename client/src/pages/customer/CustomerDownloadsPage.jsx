@@ -86,7 +86,7 @@ export const CustomerDownloadsPage = () => {
   return (
     <div className="flex flex-col gap-6 text-slate-800">
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
           Downloads & Technical Documentation
         </h1>
         <p className="text-xs text-slate-500 mt-1">
@@ -94,12 +94,12 @@ export const CustomerDownloadsPage = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
         {downloads.map((item) => {
           const Icon = item.icon;
 
           return (
-            <Card key={item.id} className="p-6 bg-white border-slate-200 shadow-sm flex flex-col justify-between gap-4">
+            <Card key={item.id} className="p-4 sm:p-6 bg-white border-slate-200 shadow-sm flex flex-col justify-between gap-4">
               <div className="flex flex-col gap-2">
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-red-50 text-red-700 border border-red-200">

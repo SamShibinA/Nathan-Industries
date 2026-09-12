@@ -45,7 +45,7 @@ export const App = () => {
         <AuthProvider>
           <BrowserRouter>
             <Routes>
-              {/* Public Website Routes */}
+              {/* Public Website & Integrated Portals (Wrapped in MainLayout) */}
               <Route path="/" element={<MainLayout />}>
                 <Route index element={<HomePage />} />
                 <Route path="about" element={<AboutPage />} />
@@ -55,6 +55,44 @@ export const App = () => {
                 <Route path="projects/:slug" element={<ProjectDetailPage />} />
                 <Route path="gallery" element={<GalleryPage />} />
                 <Route path="contact" element={<ContactPage />} />
+
+                {/* Protected Customer Dashboard Routes (Authenticated Users) */}
+                <Route
+                  path="dashboard"
+                  element={
+                    <ProtectedRoute>
+                      <CustomerLayout />
+                    </ProtectedRoute>
+                  }
+                >
+                  <Route index element={<CustomerDashboardHome />} />
+                  <Route path="quotes" element={<CustomerQuotesPage />} />
+                  <Route path="inquiries" element={<CustomerInquiriesPage />} />
+                  <Route path="downloads" element={<CustomerDownloadsPage />} />
+                  <Route path="profile" element={<CustomerProfilePage />} />
+                  <Route path="change-password" element={<CustomerChangePasswordPage />} />
+                </Route>
+
+                {/* Protected Admin CMS Portal Routes (Admin Role Only) */}
+                <Route
+                  path="admin"
+                  element={
+                    <ProtectedRoute allowedRoles={['admin']}>
+                      <AdminLayout />
+                    </ProtectedRoute>
+                  }
+                >
+                  <Route index element={<AdminDashboardPage />} />
+                  <Route path="products" element={<AdminProductsPage />} />
+                  <Route path="projects" element={<AdminProjectsPage />} />
+                  <Route path="gallery" element={<AdminGalleryPage />} />
+                  <Route path="quotes" element={<AdminQuotesPage />} />
+                  <Route path="inquiries" element={<AdminInquiriesPage />} />
+                  <Route path="users" element={<AdminUsersPage />} />
+                </Route>
+
+                {/* 404 Fallback within public layout */}
+                <Route path="*" element={<NotFoundPage />} />
               </Route>
 
               {/* Authentication Routes (Wrapped in AuthLayout) */}
@@ -64,44 +102,6 @@ export const App = () => {
                 <Route path="forgot-password" element={<ForgotPasswordPage />} />
                 <Route path="reset-password/:resetToken" element={<ResetPasswordPage />} />
               </Route>
-
-              {/* Protected Customer Dashboard Routes (Authenticated Users) */}
-              <Route
-                path="/dashboard"
-                element={
-                  <ProtectedRoute>
-                    <CustomerLayout />
-                  </ProtectedRoute>
-                }
-              >
-                <Route index element={<CustomerDashboardHome />} />
-                <Route path="quotes" element={<CustomerQuotesPage />} />
-                <Route path="inquiries" element={<CustomerInquiriesPage />} />
-                <Route path="downloads" element={<CustomerDownloadsPage />} />
-                <Route path="profile" element={<CustomerProfilePage />} />
-                <Route path="change-password" element={<CustomerChangePasswordPage />} />
-              </Route>
-
-              {/* Protected Admin CMS Portal Routes (Admin Role Only) */}
-              <Route
-                path="/admin"
-                element={
-                  <ProtectedRoute allowedRoles={['admin']}>
-                    <AdminLayout />
-                  </ProtectedRoute>
-                }
-              >
-                <Route index element={<AdminDashboardPage />} />
-                <Route path="products" element={<AdminProductsPage />} />
-                <Route path="projects" element={<AdminProjectsPage />} />
-                <Route path="gallery" element={<AdminGalleryPage />} />
-                <Route path="quotes" element={<AdminQuotesPage />} />
-                <Route path="inquiries" element={<AdminInquiriesPage />} />
-                <Route path="users" element={<AdminUsersPage />} />
-              </Route>
-
-              {/* 404 Fallback */}
-              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </BrowserRouter>
         </AuthProvider>

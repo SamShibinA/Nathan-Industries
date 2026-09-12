@@ -121,10 +121,10 @@ export const AdminDashboardPage = () => {
   return (
     <div className="flex flex-col gap-6 text-slate-800">
       {/* Top Banner (Solid White / Slate, No Gradients, No Black) */}
-      <div className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200 shadow-sm relative overflow-hidden">
+      <div className="p-4 sm:p-6 md:p-8 rounded-2xl bg-white border border-slate-200 shadow-sm relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-1 bg-red-600" />
 
-        <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+        <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5 sm:gap-6">
           <div>
             <div className="flex items-center gap-2 mb-2">
               <Badge variant="red" size="sm" icon={HiShieldCheck}>
@@ -134,7 +134,7 @@ export const AdminDashboardPage = () => {
                 System: ONLINE • v1.0.0
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
               NathanIndustries Management Portal
             </h1>
             <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl leading-relaxed">
@@ -142,7 +142,7 @@ export const AdminDashboardPage = () => {
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-3 w-full lg:w-auto">
+          <div className="flex flex-wrap gap-2.5 sm:gap-3 w-full lg:w-auto">
             <Link to="/admin/products" className="flex-1 sm:flex-initial">
               <Button variant="primary" size="md" icon={HiPlus} className="w-full font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-600/20">
                 Add Machinery
@@ -158,7 +158,7 @@ export const AdminDashboardPage = () => {
       </div>
 
       {/* 4 Core KPI Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {kpis.map((kpi, idx) => {
           const Icon = kpi.icon;
           return (
@@ -168,18 +168,18 @@ export const AdminDashboardPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: idx * 0.06 }}
             >
-              <Card className="h-full p-6 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group">
+              <Card className="h-full p-4 sm:p-5 md:p-6 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group">
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <div className="w-11 h-11 rounded-2xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center group-hover:scale-105 group-hover:bg-red-600 group-hover:text-white transition-all shadow-sm">
+                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center group-hover:scale-105 group-hover:bg-red-600 group-hover:text-white transition-all shadow-sm">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-2xl sm:text-3xl font-black text-slate-900 font-mono">
+                    <span className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 font-mono">
                       {kpi.val}
                     </span>
                   </div>
 
-                  <h3 className="text-sm font-bold text-slate-900 group-hover:text-red-600 transition-colors mb-0.5">
+                  <h3 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-red-600 transition-colors mb-0.5">
                     {kpi.title}
                   </h3>
                   <p className="text-xs text-slate-500">{kpi.sub}</p>
@@ -199,12 +199,12 @@ export const AdminDashboardPage = () => {
       </div>
 
       {/* Operations Overview & Recent Feed */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
         {/* Recent System Activity */}
         <div className="lg:col-span-7 flex flex-col gap-4">
-          <Card className="p-6 bg-white border-slate-200">
+          <Card className="p-4 sm:p-6 bg-white border-slate-200">
             <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
-              <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <h3 className="text-sm sm:text-base font-bold text-slate-900 flex items-center gap-2">
                 <HiChartBar className="w-5 h-5 text-red-600" />
                 <span>Recent Platform Activity</span>
               </h3>
@@ -227,8 +227,8 @@ export const AdminDashboardPage = () => {
 
         {/* Quick Operational Links */}
         <div className="lg:col-span-5 flex flex-col gap-4">
-          <Card className="p-6 bg-white border-slate-200">
-            <h3 className="text-base font-bold text-slate-900 mb-4 pb-3 border-b border-slate-200">
+          <Card className="p-4 sm:p-6 bg-white border-slate-200">
+            <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-4 pb-3 border-b border-slate-200">
               Quick Administrative Tasks
             </h3>
 

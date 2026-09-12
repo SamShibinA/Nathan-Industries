@@ -70,7 +70,7 @@ export const AdminInquiriesPage = () => {
   return (
     <div className="flex flex-col gap-6 text-slate-800">
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
           Client Inquiries & Direct Messages
         </h1>
         <p className="text-xs text-slate-500 mt-1">
@@ -96,7 +96,7 @@ export const AdminInquiriesPage = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-red-500"
+            className="w-full sm:w-auto px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-red-500"
           >
             <option value="all">All Statuses</option>
             <option value="new">New</option>
@@ -118,7 +118,7 @@ export const AdminInquiriesPage = () => {
       ) : (
         <div className="flex flex-col gap-4">
           {inquiries.map((inq) => (
-            <Card key={inq._id} className="p-6 bg-white border-slate-200 shadow-sm flex flex-col gap-4">
+            <Card key={inq._id} className="p-4 sm:p-6 bg-white border-slate-200 shadow-sm flex flex-col gap-4">
               <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-3 border-b border-slate-200">
                 <div className="flex items-center gap-2.5 flex-wrap">
                   <span className="text-xs font-mono font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded border border-red-200">

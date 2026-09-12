@@ -69,7 +69,7 @@ export const CustomerQuotesPage = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
             My RFQ Quote Requests
           </h1>
           <p className="text-xs text-slate-500 mt-1">
@@ -77,12 +77,12 @@ export const CustomerQuotesPage = () => {
           </p>
         </div>
 
-        <Link to="/contact?type=quote">
+        <Link to="/contact?type=quote" className="w-full sm:w-auto">
           <Button
             variant="primary"
             size="md"
             icon={HiPlus}
-            className="font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-600/20"
+            className="w-full sm:w-auto font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-600/20"
           >
             Request New Quote
           </Button>
@@ -107,7 +107,7 @@ export const CustomerQuotesPage = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-red-500 font-semibold"
+            className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-red-500 font-semibold w-full sm:w-auto"
           >
             <option value="all">All Statuses</option>
             <option value="pending">Pending</option>
@@ -123,7 +123,7 @@ export const CustomerQuotesPage = () => {
           <Spinner size="lg" />
         </div>
       ) : filteredQuotes.length === 0 ? (
-        <Card className="p-12 text-center bg-white border-slate-200 shadow-sm">
+        <Card className="p-8 sm:p-12 text-center bg-white border-slate-200 shadow-sm">
           <HiDocumentText className="w-12 h-12 text-slate-300 mx-auto mb-3" />
           <h3 className="text-sm font-bold text-slate-800">No Quote Requests Found</h3>
           <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
@@ -143,13 +143,13 @@ export const CustomerQuotesPage = () => {
             const statusObj = getDisplayStatus(q.status);
 
             return (
-              <Card key={q._id} className="p-6 bg-white border-slate-200 shadow-sm flex flex-col gap-4">
+              <Card key={q._id} className="p-4 sm:p-6 bg-white border-slate-200 shadow-sm flex flex-col gap-4">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-slate-200">
                   <div className="flex items-center gap-2.5 flex-wrap">
                     <span className="text-xs font-mono font-bold text-red-600 bg-red-50 px-2.5 py-1 rounded-lg border border-red-200">
                       {q.quoteNumber || q._id.substring(0, 8)}
                     </span>
-                    <h3 className="text-base font-bold text-slate-900">{q.product}</h3>
+                    <h3 className="text-sm sm:text-base font-bold text-slate-900">{q.product}</h3>
                   </div>
 
                   <div className="flex items-center gap-3">
@@ -181,7 +181,7 @@ export const CustomerQuotesPage = () => {
                       size="sm"
                       icon={HiEye}
                       onClick={() => setSelectedQuote(q)}
-                      className="bg-white border-slate-300 hover:border-red-400 text-slate-700 hover:text-red-600 text-xs font-bold"
+                      className="w-full sm:w-auto bg-white border-slate-300 hover:border-red-400 text-slate-700 hover:text-red-600 text-xs font-bold"
                     >
                       View Details
                     </Button>
@@ -196,7 +196,7 @@ export const CustomerQuotesPage = () => {
       {/* Quote Detail Modal */}
       {selectedQuote && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-xl border border-slate-200 flex flex-col gap-4 relative">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-4 sm:p-6 shadow-xl border border-slate-200 flex flex-col gap-4 relative">
             <button
               onClick={() => setSelectedQuote(null)}
               className="absolute top-4 right-4 p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100"

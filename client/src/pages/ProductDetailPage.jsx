@@ -169,7 +169,7 @@ export const ProductDetailPage = () => {
               </div>
 
               {/* Refined Title Typography */}
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight mb-3">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight mb-3">
                 {product.name}
               </h1>
 
@@ -178,24 +178,24 @@ export const ProductDetailPage = () => {
               </p>
 
               {/* Core Ratings Matrix */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 p-4 rounded-2xl bg-white border border-slate-200 text-xs mb-6 shadow-sm">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3 p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200 text-xs mb-6 shadow-sm">
                 <div>
                   <span className="text-[10px] uppercase font-bold text-slate-400 block">Production Capacity</span>
-                  <span className="font-bold text-slate-900 text-sm font-mono mt-0.5 block">{product.capacity || 'Custom'}</span>
+                  <span className="font-bold text-slate-900 text-xs sm:text-sm font-mono mt-0.5 block">{product.capacity || 'Custom'}</span>
                 </div>
                 <div>
                   <span className="text-[10px] uppercase font-bold text-slate-400 block">Motor Power</span>
-                  <span className="font-bold text-slate-900 text-sm font-mono mt-0.5 block">{product.power || 'Dual Electric'}</span>
+                  <span className="font-bold text-slate-900 text-xs sm:text-sm font-mono mt-0.5 block">{product.power || 'Dual Electric'}</span>
                 </div>
                 <div>
                   <span className="text-[10px] uppercase font-bold text-slate-400 block">IS Standard</span>
-                  <span className="font-bold text-red-600 text-sm font-mono mt-0.5 block">IS 383 Compliant</span>
+                  <span className="font-bold text-red-600 text-xs sm:text-sm font-mono mt-0.5 block">IS 383 Compliant</span>
                 </div>
               </div>
             </div>
 
             {/* Action Bar */}
-            <div className="flex flex-col sm:flex-row items-center gap-3 pt-6 border-t border-slate-200">
+            <div className="flex flex-col sm:flex-row items-center gap-2.5 sm:gap-3 pt-6 border-t border-slate-200">
               <Button
                 variant="primary"
                 size="lg"
@@ -230,7 +230,7 @@ export const ProductDetailPage = () => {
         {/* Dynamic Key-Value Specifications Matrix */}
         {product.specifications && Object.keys(product.specifications).length > 0 && (
           <div className="mb-12">
-            <h3 className="text-lg font-bold text-slate-900 mb-4 pb-2 border-b border-slate-200 flex items-center gap-2">
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-4 pb-2 border-b border-slate-200 flex items-center gap-2">
               <HiBolt className="w-5 h-5 text-red-600" />
               <span>Full Engineering Specifications</span>
             </h3>
@@ -238,7 +238,7 @@ export const ProductDetailPage = () => {
             <Card className="p-0 bg-white border-slate-200 overflow-hidden shadow-sm">
               <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200">
                 {Object.entries(product.specifications).map(([key, val]) => (
-                  <div key={key} className="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+                  <div key={key} className="p-3 sm:p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
                     <span className="font-semibold text-slate-600 capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
                     <span className="font-mono font-bold text-slate-900 text-right">{val}</span>
                   </div>
@@ -249,11 +249,11 @@ export const ProductDetailPage = () => {
         )}
 
         {/* Features & Applications */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-12">
           {/* Features */}
           {product.features?.length > 0 && (
-            <Card className="p-6 bg-white border-slate-200">
-              <h3 className="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <Card className="p-4 sm:p-6 bg-white border-slate-200">
+              <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
                 <HiShieldCheck className="w-5 h-5 text-emerald-600" />
                 <span>Heavy-Duty Construction Features</span>
               </h3>
@@ -270,8 +270,8 @@ export const ProductDetailPage = () => {
 
           {/* Applications */}
           {product.applications?.length > 0 && (
-            <Card className="p-6 bg-white border-slate-200">
-              <h3 className="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <Card className="p-4 sm:p-6 bg-white border-slate-200">
+              <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
                 <HiCpuChip className="w-5 h-5 text-sky-600" />
                 <span>Industrial Applications</span>
               </h3>

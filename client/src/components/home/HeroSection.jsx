@@ -44,7 +44,7 @@ export const HeroSection = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 leading-[1.15] mb-5"
+            className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 leading-[1.15] mb-4 sm:mb-5"
           >
             Heavy Crushing Machinery & <br />
             <span className="text-red-600">Turnkey Infrastructure Construction</span>
@@ -55,7 +55,7 @@ export const HeroSection = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mb-8"
+            className="text-slate-600 text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl mb-6 sm:mb-8"
           >
             Engineering high-tonnage <strong>Jaw Crushers</strong>, <strong>Hydraulic Cone Crushers</strong>, <strong>IS 383 M-Sand Plants</strong>, and executing national <strong>Railway Overbridges (ROBs)</strong> with guaranteed performance and zero-defect metallurgy.
           </motion.p>
@@ -65,7 +65,7 @@ export const HeroSection = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-wrap items-center justify-center gap-3 w-full sm:w-auto mb-10"
+            className="flex flex-wrap items-center justify-center gap-3 w-full sm:w-auto mb-8 sm:mb-10"
           >
             <Link to="/contact?type=quote" className="w-full sm:w-auto">
               <Button
@@ -96,15 +96,15 @@ export const HeroSection = () => {
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full max-w-3xl"
+            className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 w-full max-w-3xl"
           >
             {machineryPills.map((pill, idx) => (
               <div
                 key={idx}
-                className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col items-center justify-center text-center shadow-sm hover:border-red-400 transition-all"
+                className="p-2 sm:p-3.5 rounded-xl sm:rounded-2xl bg-slate-50 border border-slate-200 flex flex-col items-center justify-center text-center shadow-sm hover:border-red-400 transition-all"
               >
-                <span className="text-xs font-bold text-slate-900">{pill.name}</span>
-                <span className="text-[11px] font-mono text-red-600 mt-0.5 font-semibold">
+                <span className="text-[11px] sm:text-xs font-bold text-slate-900 leading-tight">{pill.name}</span>
+                <span className="text-[10px] sm:text-[11px] font-mono text-red-600 mt-0.5 font-semibold">
                   {pill.spec}
                 </span>
               </div>

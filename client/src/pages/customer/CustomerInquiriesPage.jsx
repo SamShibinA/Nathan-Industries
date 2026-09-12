@@ -67,7 +67,7 @@ export const CustomerInquiriesPage = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
             My Contact Requests & Inquiries
           </h1>
           <p className="text-xs text-slate-500 mt-1">
@@ -75,12 +75,12 @@ export const CustomerInquiriesPage = () => {
           </p>
         </div>
 
-        <Link to="/contact">
+        <Link to="/contact" className="w-full sm:w-auto">
           <Button
             variant="primary"
             size="md"
             icon={HiPlus}
-            className="font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-600/20"
+            className="w-full sm:w-auto font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-600/20"
           >
             Submit New Inquiry
           </Button>
@@ -105,7 +105,7 @@ export const CustomerInquiriesPage = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-red-500 font-semibold"
+            className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-red-500 font-semibold w-full sm:w-auto"
           >
             <option value="all">All Statuses</option>
             <option value="pending">Pending</option>
@@ -121,7 +121,7 @@ export const CustomerInquiriesPage = () => {
           <Spinner size="lg" />
         </div>
       ) : filteredInquiries.length === 0 ? (
-        <Card className="p-12 text-center bg-white border-slate-200 shadow-sm">
+        <Card className="p-8 sm:p-12 text-center bg-white border-slate-200 shadow-sm">
           <HiEnvelope className="w-12 h-12 text-slate-300 mx-auto mb-3" />
           <h3 className="text-sm font-bold text-slate-800">No Contact Requests Found</h3>
           <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
@@ -141,7 +141,7 @@ export const CustomerInquiriesPage = () => {
             const statusObj = getDisplayStatus(inq.status);
 
             return (
-              <Card key={inq._id} className="p-6 bg-white border-slate-200 shadow-sm flex flex-col gap-4">
+              <Card key={inq._id} className="p-4 sm:p-6 bg-white border-slate-200 shadow-sm flex flex-col gap-4">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-slate-200">
                   <div className="flex items-center gap-2.5 flex-wrap">
                     <span className="text-xs font-mono font-bold text-red-600 bg-red-50 px-2.5 py-1 rounded-lg border border-red-200">
@@ -172,7 +172,7 @@ export const CustomerInquiriesPage = () => {
                     size="sm"
                     icon={HiEye}
                     onClick={() => setSelectedInquiry(inq)}
-                    className="bg-white border-slate-300 hover:border-red-400 text-slate-700 hover:text-red-600 text-xs font-bold self-start sm:self-center flex-shrink-0"
+                    className="w-full sm:w-auto bg-white border-slate-300 hover:border-red-400 text-slate-700 hover:text-red-600 text-xs font-bold self-start sm:self-center flex-shrink-0"
                   >
                     View Details
                   </Button>
@@ -186,7 +186,7 @@ export const CustomerInquiriesPage = () => {
       {/* Inquiry Detail Modal */}
       {selectedInquiry && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-xl border border-slate-200 flex flex-col gap-4 relative">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-4 sm:p-6 shadow-xl border border-slate-200 flex flex-col gap-4 relative">
             <button
               onClick={() => setSelectedInquiry(null)}
               className="absolute top-4 right-4 p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100"

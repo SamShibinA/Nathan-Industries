@@ -13,12 +13,27 @@ import { Container } from './Container.jsx';
 export const Breadcrumb = ({ items, title, className = '' }) => {
   const location = useLocation();
 
+  // Friendly labels for routes
+  const ROUTE_LABELS = {
+    dashboard: 'Client Portal',
+    admin: 'Admin CMS',
+    quotes: 'Quotes & RFQs',
+    inquiries: 'Contact Requests',
+    downloads: 'Downloads & Specs',
+    profile: 'Profile',
+    'change-password': 'Change Password',
+    products: 'Equipment Catalog',
+    projects: 'Infra Projects',
+    gallery: 'Media Archive',
+    users: 'User Registry',
+  };
+
   // If no explicit items passed, derive from current pathname
   const derivedItems = items || (() => {
     const pathnames = location.pathname.split('/').filter((x) => x);
     const trail = pathnames.map((value, index) => {
       const to = `/${pathnames.slice(0, index + 1).join('/')}`;
-      const label = value
+      const label = ROUTE_LABELS[value] || value
         .split('-')
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
@@ -31,9 +46,11 @@ export const Breadcrumb = ({ items, title, className = '' }) => {
     return null;
   }
 
+  const isPortal = location.pathname.startsWith('/dashboard') || location.pathname.startsWith('/admin');
+
   return (
     <div className={`py-3 border-b border-slate-200 bg-white ${className}`}>
-      <Container>
+      <Container fluid={isPortal} className={isPortal ? 'px-4 sm:px-6 lg:px-8 xl:px-10' : ''}>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           {/* Breadcrumb Links */}
           <nav className="flex items-center space-x-2 text-xs font-medium text-slate-500" aria-label="Breadcrumb">

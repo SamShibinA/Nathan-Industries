@@ -82,7 +82,7 @@ export const AdminProjectsPage = () => {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
             Infrastructure Projects CMS
           </h1>
           <p className="text-xs text-slate-500 mt-1">
@@ -95,7 +95,7 @@ export const AdminProjectsPage = () => {
           size="md"
           onClick={handleOpenCreate}
           icon={HiPlus}
-          className="font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-600/20"
+          className="w-full sm:w-auto font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-600/20"
         >
           Add Infrastructure Project
         </Button>
@@ -119,7 +119,7 @@ export const AdminProjectsPage = () => {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-red-500"
+            className="w-full sm:w-auto px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-red-500"
           >
             <option value="all">All Infrastructure Types</option>
             {PROJECT_TYPES.map((t) => (

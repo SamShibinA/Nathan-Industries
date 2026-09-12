@@ -15,7 +15,7 @@ export const CtaSection = () => {
     <section className="py-16 bg-slate-50 border-b border-slate-200">
       <Container>
         {/* Elegant CTA Banner */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200 shadow-lg flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left relative overflow-hidden">
+        <div className="p-5 sm:p-8 md:p-12 rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-lg flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8 text-center lg:text-left relative overflow-hidden">
           {/* Subtle decorative accent */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500 via-red-600 to-red-500" />
 
@@ -25,7 +25,7 @@ export const CtaSection = () => {
               <span>Heavy Industry Quotation Desk</span>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight mb-3">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight mb-2.5 sm:mb-3">
               Accelerate Your Crushing Plant or Railway Bridge Project
             </h2>
 

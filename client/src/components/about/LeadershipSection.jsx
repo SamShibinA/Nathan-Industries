@@ -61,14 +61,14 @@ export const LeadershipSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.08 }}
             >
-              <Card className="h-full p-6 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group">
+              <Card className="h-full p-4 sm:p-6 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group">
                 <div>
                   {/* Leader Avatar Badge (Solid Red) */}
-                  <div className="w-14 h-14 rounded-2xl bg-red-600 text-white font-black text-xl flex items-center justify-center mb-4 shadow-md shadow-red-600/20 group-hover:scale-105 transition-transform border border-red-700">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-red-600 text-white font-black text-lg sm:text-xl flex items-center justify-center mb-3 sm:mb-4 shadow-md shadow-red-600/20 group-hover:scale-105 transition-transform border border-red-700">
                     {leader.name.split(' ').map((n) => n[0]).slice(0, 2).join('')}
                   </div>
 
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors">
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors">
                     {leader.name}
                   </h3>
 

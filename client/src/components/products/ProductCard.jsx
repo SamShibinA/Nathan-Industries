@@ -15,10 +15,10 @@ export const ProductCard = ({ product, onQuoteClick }) => {
   if (!product) return null;
 
   return (
-    <Card className="h-full p-5 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group shadow-sm relative overflow-hidden transition-all duration-200">
+    <Card className="h-full p-4 sm:p-5 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group shadow-sm relative overflow-hidden transition-all duration-200">
       <div>
         {/* Cover Visual Preview */}
-        <div className="aspect-[16/10] w-full rounded-xl bg-slate-100 border border-slate-200 relative overflow-hidden flex items-center justify-center mb-4">
+        <div className="aspect-[16/10] w-full rounded-xl bg-slate-100 border border-slate-200 relative overflow-hidden flex items-center justify-center mb-3 sm:mb-4">
           {product.coverImage ? (
             <img
               src={product.coverImage}
@@ -53,24 +53,24 @@ export const ProductCard = ({ product, onQuoteClick }) => {
         </div>
 
         {/* Title */}
-        <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors mb-2 leading-snug">
+        <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors mb-1.5 leading-snug">
           {product.name}
         </h3>
 
         {/* Summary Description */}
-        <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-4">
+        <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-3 sm:mb-4">
           {product.description}
         </p>
 
         {/* Key Specs Matrix */}
-        <div className="grid grid-cols-2 gap-2 p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs mb-4">
+        <div className="grid grid-cols-2 gap-2 p-2.5 sm:p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs mb-4">
           <div>
-            <span className="text-[10px] uppercase font-bold text-slate-400 block">Capacity</span>
-            <span className="font-bold text-slate-800 truncate block">{product.capacity || 'Customizable'}</span>
+            <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 block">Capacity</span>
+            <span className="font-bold text-slate-800 truncate block text-[11px] sm:text-xs">{product.capacity || 'Customizable'}</span>
           </div>
           <div>
-            <span className="text-[10px] uppercase font-bold text-slate-400 block">Power</span>
-            <span className="font-bold text-slate-800 truncate block">{product.power || 'Electric / Dual'}</span>
+            <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 block">Power</span>
+            <span className="font-bold text-slate-800 truncate block text-[11px] sm:text-xs">{product.power || 'Electric / Dual'}</span>
           </div>
         </div>
       </div>

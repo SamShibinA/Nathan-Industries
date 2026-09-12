@@ -56,10 +56,10 @@ export const TestimonialsSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
             >
-              <Card className="h-full p-6 bg-slate-50 border-slate-200 hover:bg-white hover:border-red-400 hover:shadow-md flex flex-col justify-between group transition-all">
+              <Card className="h-full p-4 sm:p-6 bg-slate-50 border-slate-200 hover:bg-white hover:border-red-400 hover:shadow-md flex flex-col justify-between group transition-all">
                 <div>
                   {/* Rating Stars */}
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center justify-between mb-3 sm:mb-4">
                     <div className="flex items-center gap-1 text-amber-500">
                       {[...Array(t.rating)].map((_, i) => (
                         <HiStar key={i} className="w-4 h-4 fill-current" />
@@ -70,13 +70,13 @@ export const TestimonialsSection = () => {
                     </Badge>
                   </div>
 
-                  <p className="text-xs text-slate-700 leading-relaxed italic mb-6">
+                  <p className="text-xs text-slate-700 leading-relaxed italic mb-4 sm:mb-6">
                     "{t.content}"
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-slate-200 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-red-600 text-white font-bold flex items-center justify-center text-sm shadow-md shadow-red-600/20">
+                <div className="pt-3 sm:pt-4 border-t border-slate-200 flex items-center gap-3">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-red-600 text-white font-bold flex items-center justify-center text-sm shadow-md shadow-red-600/20">
                     {t.name[0]}
                   </div>
                   <div>

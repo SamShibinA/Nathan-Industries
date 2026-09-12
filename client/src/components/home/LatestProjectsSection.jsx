@@ -58,7 +58,7 @@ export const LatestProjectsSection = () => {
             <Badge variant="red" size="md" className="mb-2">
               National Infrastructure Portfolio
             </Badge>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
               Landmark Bridge Erection & Turnkey Quarry Undertakings
             </h2>
           </div>
@@ -79,18 +79,18 @@ export const LatestProjectsSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
             >
-              <Card className="h-full p-6 bg-slate-50 border-slate-200 hover:bg-white hover:border-red-400 hover:shadow-md flex flex-col justify-between group transition-all">
+              <Card className="h-full p-4 sm:p-6 bg-slate-50 border-slate-200 hover:bg-white hover:border-red-400 hover:shadow-md flex flex-col justify-between group transition-all">
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <Badge variant="red" size="sm">
                       {proj.type}
                     </Badge>
-                    <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-200">
+                    <span className="text-[10px] sm:text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-200">
                       {proj.status}
                     </span>
                   </div>
 
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors mb-2 leading-snug">
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors mb-2 leading-snug">
                     {proj.title}
                   </h3>
 
@@ -103,14 +103,14 @@ export const LatestProjectsSection = () => {
                     {proj.description}
                   </p>
 
-                  <div className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200 text-xs mb-4">
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-white border border-slate-200 text-xs mb-4">
                     <div>
-                      <span className="text-[10px] uppercase font-bold text-slate-400 block">Location</span>
-                      <span className="font-semibold text-slate-700">{proj.location}</span>
+                      <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 block">Location</span>
+                      <span className="font-semibold text-slate-700 text-[11px] sm:text-xs">{proj.location}</span>
                     </div>
                     <div className="text-right">
-                      <span className="text-[10px] uppercase font-bold text-slate-400 block">Scale</span>
-                      <span className="font-mono font-bold text-red-600">{proj.capacity}</span>
+                      <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 block">Scale</span>
+                      <span className="font-mono font-bold text-red-600 text-[11px] sm:text-xs">{proj.capacity}</span>
                     </div>
                   </div>
                 </div>

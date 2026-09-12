@@ -71,7 +71,7 @@ export const ManufacturingFacility = () => {
         />
 
         {/* Facility Key Stats Bar */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 mb-10">
           {facilityStats.map((st, idx) => (
             <motion.div
               key={idx}
@@ -80,14 +80,14 @@ export const ManufacturingFacility = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.35, delay: idx * 0.08 }}
             >
-              <Card className="p-5 bg-white border-slate-200 text-center shadow-sm">
-                <span className="text-2xl sm:text-3xl font-black text-red-600 tracking-tight font-mono">
+              <Card className="p-3 sm:p-5 bg-white border-slate-200 text-center shadow-sm rounded-xl sm:rounded-2xl">
+                <span className="text-lg sm:text-2xl lg:text-3xl font-black text-red-600 tracking-tight font-mono block truncate">
                   {st.val}
                 </span>
-                <h4 className="text-xs font-bold text-slate-900 mt-1 uppercase tracking-wider">
+                <h4 className="text-[10px] sm:text-xs font-bold text-slate-900 mt-1 uppercase tracking-wider truncate">
                   {st.label}
                 </h4>
-                <p className="text-[11px] text-slate-500 mt-0.5">
+                <p className="text-[9px] sm:text-[11px] text-slate-500 mt-0.5 truncate">
                   {st.sub}
                 </p>
               </Card>
@@ -107,13 +107,13 @@ export const ManufacturingFacility = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: idx * 0.06 }}
               >
-                <Card className="h-full p-6 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group">
+                <Card className="h-full p-4 sm:p-6 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group">
                   <div>
-                    <div className="w-11 h-11 rounded-2xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center mb-3 group-hover:scale-105 group-hover:bg-red-600 group-hover:text-white transition-all shadow-sm">
-                      <Icon className="w-6 h-6" />
+                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center mb-3 group-hover:scale-105 group-hover:bg-red-600 group-hover:text-white transition-all shadow-sm">
+                      <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
 
-                    <h3 className="text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors mb-2">
+                    <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors mb-2">
                       {div.title}
                     </h3>
 
@@ -123,7 +123,7 @@ export const ManufacturingFacility = () => {
                   </div>
 
                   <div className="pt-3 border-t border-slate-200">
-                    <span className="text-[11px] font-mono font-bold text-red-600 block">
+                    <span className="text-[10px] sm:text-[11px] font-mono font-bold text-red-600 block">
                       ⚡ {div.specs}
                     </span>
                   </div>

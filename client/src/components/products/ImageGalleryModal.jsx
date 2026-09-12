@@ -50,7 +50,7 @@ export const ImageGalleryModal = ({ isOpen, onClose, images = [], initialIndex =
           </div>
 
           {/* Main Zoom Image Container */}
-          <div className="relative w-full aspect-video sm:aspect-[16/10] max-h-[75vh] bg-navy-950 rounded-2xl border border-borderDark flex items-center justify-center overflow-hidden shadow-2xl">
+          <div className="relative w-full aspect-video sm:aspect-[16/10] max-h-[75vh] bg-slate-950 rounded-2xl border border-slate-800 flex items-center justify-center overflow-hidden shadow-2xl">
             <motion.img
               key={currentIndex}
               initial={{ opacity: 0, scale: 0.95 }}
@@ -66,10 +66,10 @@ export const ImageGalleryModal = ({ isOpen, onClose, images = [], initialIndex =
             {images.length > 1 && (
               <button
                 onClick={handlePrev}
-                className="absolute left-4 p-3 rounded-full bg-black/60 hover:bg-orange-500 text-white border border-white/20 transition-all shadow-xl"
+                className="absolute left-2 sm:left-4 p-2 sm:p-3 rounded-full bg-black/60 hover:bg-red-600 text-white border border-white/20 transition-all shadow-xl"
                 aria-label="Previous image"
               >
-                <HiChevronLeft className="w-6 h-6" />
+                <HiChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             )}
 
@@ -77,25 +77,25 @@ export const ImageGalleryModal = ({ isOpen, onClose, images = [], initialIndex =
             {images.length > 1 && (
               <button
                 onClick={handleNext}
-                className="absolute right-4 p-3 rounded-full bg-black/60 hover:bg-orange-500 text-white border border-white/20 transition-all shadow-xl"
+                className="absolute right-2 sm:right-4 p-2 sm:p-3 rounded-full bg-black/60 hover:bg-red-600 text-white border border-white/20 transition-all shadow-xl"
                 aria-label="Next image"
               >
-                <HiChevronRight className="w-6 h-6" />
+                <HiChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             )}
           </div>
 
           {/* Thumbnail Strip */}
           {images.length > 1 && (
-            <div className="flex items-center gap-2 mt-4 overflow-x-auto max-w-full py-1">
+            <div className="flex items-center gap-2 mt-3 sm:mt-4 overflow-x-auto max-w-full py-1">
               {images.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setCurrentIndex(idx)}
-                  className={`w-16 h-12 rounded-lg border-2 overflow-hidden flex-shrink-0 transition-all ${
+                  className={`w-14 h-10 sm:w-16 sm:h-12 rounded-lg border-2 overflow-hidden flex-shrink-0 transition-all ${
                     currentIndex === idx
-                      ? 'border-orange-500 scale-105 shadow-md shadow-orange-500/30'
-                      : 'border-borderDark opacity-60 hover:opacity-100'
+                      ? 'border-red-500 scale-105 shadow-md shadow-red-500/30'
+                      : 'border-slate-700 opacity-60 hover:opacity-100'
                   }`}
                 >
                   <img src={img} alt="thumb" className="w-full h-full object-cover" />

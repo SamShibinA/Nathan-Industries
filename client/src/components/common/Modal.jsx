@@ -44,7 +44,7 @@ export const Modal = ({
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
             transition={{ duration: 0.2 }}
             className={cn(
-              'relative w-full bg-white border border-slate-200 text-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl z-10 my-8 overflow-hidden',
+              'relative w-full bg-white border border-slate-200 text-slate-800 rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl z-10 my-6 sm:my-8 overflow-hidden',
               maxWidth,
               className
             )}
@@ -53,10 +53,10 @@ export const Modal = ({
             <div className="absolute top-0 left-0 right-0 h-1 bg-red-600" />
 
             {/* Header */}
-            <div className="flex items-start justify-between gap-4 mb-6">
+            <div className="flex items-start justify-between gap-4 mb-4 sm:mb-6">
               <div>
-                {title && <h3 className="text-xl font-bold text-slate-900">{title}</h3>}
-                {subtitle && <p className="text-xs text-slate-600 mt-1">{subtitle}</p>}
+                {title && <h3 className="text-lg sm:text-xl font-bold text-slate-900">{title}</h3>}
+                {subtitle && <p className="text-xs text-slate-600 mt-0.5 sm:mt-1">{subtitle}</p>}
               </div>
 
               <button

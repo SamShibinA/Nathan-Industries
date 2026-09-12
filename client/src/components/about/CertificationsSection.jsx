@@ -70,10 +70,10 @@ export const CertificationsSection = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: idx * 0.08 }}
               >
-                <Card className="h-full p-6 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group">
+                <Card className="h-full p-4 sm:p-6 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group">
                   <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="w-11 h-11 rounded-xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center group-hover:scale-105 group-hover:bg-red-600 group-hover:text-white transition-all shadow-sm">
+                    <div className="flex items-center justify-between mb-3 sm:mb-4">
+                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center group-hover:scale-105 group-hover:bg-red-600 group-hover:text-white transition-all shadow-sm">
                         <Icon className="w-5 h-5" />
                       </div>
                       <Badge variant="red" size="sm">{cert.badge}</Badge>
@@ -83,11 +83,11 @@ export const CertificationsSection = () => {
                       {cert.code}
                     </span>
 
-                    <h3 className="text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors mb-1">
+                    <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors mb-1">
                       {cert.title}
                     </h3>
 
-                    <span className="text-[11px] text-slate-500 font-semibold block mb-3">
+                    <span className="text-[10px] sm:text-[11px] text-slate-500 font-semibold block mb-2 sm:mb-3">
                       Issued by: {cert.authority}
                     </span>
 

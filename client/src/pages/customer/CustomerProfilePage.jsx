@@ -70,7 +70,7 @@ export const CustomerProfilePage = () => {
   return (
     <div className="flex flex-col gap-6 text-slate-800 max-w-4xl">
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
           My Account & Profile Settings
         </h1>
         <p className="text-xs text-slate-500 mt-1">
@@ -80,7 +80,7 @@ export const CustomerProfilePage = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Profile Brief Side Card */}
-        <Card className="p-6 bg-white border-slate-200 shadow-sm flex flex-col gap-4 text-center items-center">
+        <Card className="p-4 sm:p-6 bg-white border-slate-200 shadow-sm flex flex-col gap-4 text-center items-center">
           <div className="w-20 h-20 rounded-full bg-red-100 text-red-700 font-black text-2xl flex items-center justify-center border-2 border-red-200 shadow-inner">
             {user?.name?.charAt(0) || 'C'}
           </div>
@@ -118,7 +118,7 @@ export const CustomerProfilePage = () => {
         </Card>
 
         {/* Edit Profile Form */}
-        <Card className="lg:col-span-2 p-6 bg-white border-slate-200 shadow-sm flex flex-col gap-6">
+        <Card className="lg:col-span-2 p-4 sm:p-6 bg-white border-slate-200 shadow-sm flex flex-col gap-6">
           <div className="flex items-center justify-between border-b border-slate-200 pb-3">
             <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
               <HiPencilSquare className="w-5 h-5 text-red-600" />
@@ -234,7 +234,7 @@ export const CustomerProfilePage = () => {
                 variant="primary"
                 size="md"
                 isLoading={loading}
-                className="font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-600/20"
+                className="w-full sm:w-auto font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-600/20"
               >
                 Save Profile Changes
               </Button>

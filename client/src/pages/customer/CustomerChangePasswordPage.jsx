@@ -59,7 +59,7 @@ export const CustomerChangePasswordPage = () => {
   return (
     <div className="flex flex-col gap-6 text-slate-800 max-w-xl">
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
           Change Account Password
         </h1>
         <p className="text-xs text-slate-500 mt-1">
@@ -67,7 +67,7 @@ export const CustomerChangePasswordPage = () => {
         </p>
       </div>
 
-      <Card className="p-6 bg-white border-slate-200 shadow-sm flex flex-col gap-6">
+      <Card className="p-4 sm:p-6 bg-white border-slate-200 shadow-sm flex flex-col gap-5 sm:gap-6">
         <div className="flex items-center gap-3 p-3 rounded-xl bg-red-50 border border-red-100 text-red-700 text-xs font-medium">
           <HiShieldCheck className="w-5 h-5 flex-shrink-0 text-red-600" />
           <span>Password must contain at least 6 characters. Avoid using simple or easily guessable passwords.</span>

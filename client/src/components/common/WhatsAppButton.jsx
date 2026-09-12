@@ -13,7 +13,7 @@ export const WhatsAppButton = () => {
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${defaultMessage}`;
 
   return (
-    <div className="fixed bottom-6 left-6 z-40 flex items-center gap-3">
+    <div className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-40 flex items-center gap-3">
       {/* Floating Action Button */}
       <motion.a
         href={whatsappUrl}
@@ -21,13 +21,13 @@ export const WhatsAppButton = () => {
         rel="noopener noreferrer"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
-        className="relative w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center shadow-2xl shadow-emerald-500/40 border-2 border-white/20 transition-colors group cursor-pointer"
+        className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center shadow-2xl shadow-emerald-500/40 border-2 border-white/20 transition-colors group cursor-pointer"
         aria-label="Chat on WhatsApp"
       >
         {/* Pulsing Ripple Effect */}
         <span className="absolute -inset-1 rounded-full bg-emerald-500/40 animate-ping opacity-75 pointer-events-none" />
 
-        <FaWhatsapp className="w-7 h-7 relative z-10" />
+        <FaWhatsapp className="w-6 h-6 sm:w-7 sm:h-7 relative z-10" />
       </motion.a>
 
       {/* Dismissable Floating Quick Chat Bubble */}
@@ -37,7 +37,7 @@ export const WhatsAppButton = () => {
             initial={{ opacity: 0, x: -10, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: -10, scale: 0.9 }}
-            className="hidden sm:flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-navy-900/95 backdrop-blur-md border border-emerald-500/30 text-white shadow-xl shadow-black/50 text-xs"
+            className="hidden sm:flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-slate-900/95 backdrop-blur-md border border-emerald-500/30 text-white shadow-xl shadow-black/50 text-xs"
           >
             <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <div className="flex flex-col">

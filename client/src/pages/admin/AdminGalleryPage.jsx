@@ -70,7 +70,7 @@ export const AdminGalleryPage = () => {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
             Visual Media & Gallery CMS
           </h1>
           <p className="text-xs text-slate-500 mt-1">
@@ -83,7 +83,7 @@ export const AdminGalleryPage = () => {
           size="md"
           onClick={() => setUploadModalOpen(true)}
           icon={HiPlus}
-          className="font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-600/20"
+          className="w-full sm:w-auto font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-600/20"
         >
           Upload Visual Asset
         </Button>
@@ -107,7 +107,7 @@ export const AdminGalleryPage = () => {
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-red-500"
+            className="w-full sm:w-auto px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-red-500"
           >
             <option value="all">All Visual Categories</option>
             {GALLERY_CATEGORIES.map((c) => (
@@ -130,7 +130,7 @@ export const AdminGalleryPage = () => {
           No gallery images found. Click "Upload Visual Asset" to add new photographs.
         </Card>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {items.map((item) => (
             <Card key={item._id} className="p-3 bg-white border-slate-200 group flex flex-col justify-between shadow-sm">
               <div>

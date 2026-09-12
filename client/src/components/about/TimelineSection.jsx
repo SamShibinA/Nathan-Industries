@@ -100,15 +100,15 @@ export const TimelineSection = () => {
                 >
                   {/* Content Card */}
                   <div className="w-full sm:w-1/2">
-                    <Card className="p-6 bg-white border-slate-200 hover:border-red-400 hover:shadow-md group">
+                    <Card className="p-4 sm:p-6 bg-white border-slate-200 hover:border-red-400 hover:shadow-md group">
                       <div className="flex items-center justify-between gap-2 mb-2">
-                        <span className="text-xl font-black text-red-600 tracking-tight font-mono">
+                        <span className="text-lg sm:text-xl font-black text-red-600 tracking-tight font-mono">
                           {item.year}
                         </span>
                         <Badge variant="red" size="sm">{item.tag}</Badge>
                       </div>
 
-                      <h3 className="text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors mb-2">
+                      <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors mb-2">
                         {item.title}
                       </h3>
 

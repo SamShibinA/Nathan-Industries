@@ -75,7 +75,7 @@ export const AdminQuotesPage = () => {
     <div className="flex flex-col gap-6 text-slate-800">
       {/* Top Header */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
           Client RFQ Quotation Pipeline
         </h1>
         <p className="text-xs text-slate-500 mt-1">
@@ -101,7 +101,7 @@ export const AdminQuotesPage = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-red-500"
+            className="w-full sm:w-auto px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-slate-800 text-xs focus:outline-none focus:border-red-500"
           >
             <option value="all">All Statuses</option>
             <option value="pending">Pending</option>
@@ -124,13 +124,13 @@ export const AdminQuotesPage = () => {
       ) : (
         <div className="flex flex-col gap-4">
           {quotes.map((q) => (
-            <Card key={q._id} className="p-6 bg-white border-slate-200 shadow-sm flex flex-col gap-4">
+            <Card key={q._id} className="p-4 sm:p-6 bg-white border-slate-200 shadow-sm flex flex-col gap-4">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-slate-200">
                 <div className="flex items-center gap-2.5 flex-wrap">
                   <span className="text-xs font-mono font-bold text-red-600 bg-red-50 px-2.5 py-1 rounded-lg border border-red-200">
                     {q.quoteNumber || q._id.substring(0, 8)}
                   </span>
-                  <h3 className="text-base font-bold text-slate-900">{q.product}</h3>
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900">{q.product}</h3>
                 </div>
 
                 <div className="flex items-center gap-2">

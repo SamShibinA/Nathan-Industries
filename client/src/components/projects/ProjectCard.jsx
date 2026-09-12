@@ -14,10 +14,10 @@ export const ProjectCard = ({ project }) => {
   if (!project) return null;
 
   return (
-    <Card className="h-full p-5 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group shadow-sm relative overflow-hidden transition-all duration-200">
+    <Card className="h-full p-4 sm:p-5 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group shadow-sm relative overflow-hidden transition-all duration-200">
       <div>
         {/* Cover Preview Image */}
-        <div className="aspect-[16/10] w-full rounded-xl bg-slate-100 border border-slate-200 relative overflow-hidden flex items-center justify-center mb-4">
+        <div className="aspect-[16/10] w-full rounded-xl bg-slate-100 border border-slate-200 relative overflow-hidden flex items-center justify-center mb-3 sm:mb-4">
           {project.coverImage ? (
             <img
               src={project.coverImage}
@@ -65,12 +65,12 @@ export const ProjectCard = ({ project }) => {
         </div>
 
         {/* Description */}
-        <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-4">
+        <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-3 sm:mb-4">
           {project.description}
         </p>
 
         {/* Location and Capacity Bar */}
-        <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs mb-4">
+        <div className="flex items-center justify-between p-2 sm:p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-[11px] sm:text-xs mb-4">
           <div className="flex items-center gap-1 text-slate-700 truncate max-w-[50%]">
             <HiMapPin className="w-3.5 h-3.5 text-red-600 flex-shrink-0" />
             <span className="truncate">{project.location}</span>
