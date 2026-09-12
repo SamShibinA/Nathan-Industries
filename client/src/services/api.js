@@ -1,13 +1,19 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+let rawUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+// Remove any trailing slash
+rawUrl = rawUrl.trim().replace(/\/+$/, '');
+// Ensure it points to /api endpoint
+if (!rawUrl.endsWith('/api')) {
+  rawUrl = `${rawUrl}/api`;
+}
 
 export const api = axios.create({
-  baseURL: API_URL,
+  baseURL: rawUrl,
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 15000,
+  timeout: 20000,
 });
 
 // Request Interceptor: Attach Auth Token if present

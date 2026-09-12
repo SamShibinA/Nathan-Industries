@@ -1,13 +1,21 @@
 import mongoose from 'mongoose';
 import { env } from './env.js';
 
+let cachedConn = null;
+
 export const connectDB = async () => {
+  // Reuse existing connection if ready
+  if (cachedConn && mongoose.connection.readyState === 1) {
+    return cachedConn;
+  }
+
   try {
     const conn = await mongoose.connect(env.MONGO_URI, {
       autoIndex: true,
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 8000,
     });
 
+    cachedConn = conn;
     console.log(`[MongoDB] Connected successfully: ${conn.connection.host}/${conn.connection.name}`);
 
     // Connection event listeners
@@ -17,6 +25,7 @@ export const connectDB = async () => {
 
     mongoose.connection.on('disconnected', () => {
       console.warn('[MongoDB] Disconnected from database');
+      cachedConn = null;
     });
 
     mongoose.connection.on('reconnected', () => {
@@ -26,9 +35,11 @@ export const connectDB = async () => {
     return conn;
   } catch (error) {
     console.error(`[MongoDB Connection Failed] ${error.message}`);
-    // In dev mode, don't crash immediately so developer can see issues or start mongo
-    if (env.isProduction) {
+    cachedConn = null;
+    // In standalone production, exit process. On serverless (Vercel), throw to let handler return 500
+    if (env.isProduction && !process.env.VERCEL) {
       process.exit(1);
     }
+    throw error;
   }
 };

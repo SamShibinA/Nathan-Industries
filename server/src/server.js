@@ -38,20 +38,42 @@ app.use(
 );
 
 // 2. CORS Configuration
-const allowedOrigins = [
-  env.CLIENT_URL,
+const configuredOrigins = env.CLIENT_URL
+  ? env.CLIENT_URL.split(',').map((u) => u.trim().replace(/\/$/, ''))
+  : [];
+
+const localDevOrigins = [
   'http://localhost:5173',
   'http://127.0.0.1:5173',
   'http://localhost:5174',
   'http://localhost:3000',
 ];
 
+const allowedOrigins = [...configuredOrigins, ...localDevOrigins];
+
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      // Allow requests with no origin (mobile apps, Postman, curl, server-to-server)
+      if (!origin) {
         return callback(null, true);
       }
+
+      // Allow configured origins and local development
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      // Automatically allow all *.vercel.app deployment preview/production domains
+      if (/^https:\/\/[a-zA-Z0-9-_.]+\.vercel\.app$/.test(origin)) {
+        return callback(null, true);
+      }
+
+      // Allow all in development mode
+      if (env.NODE_ENV !== 'production') {
+        return callback(null, true);
+      }
+
       return callback(new Error(`CORS policy blocked access from origin: ${origin}`));
     },
     credentials: true,
@@ -83,7 +105,30 @@ if (fs.existsSync(uploadRoot)) {
   }));
 }
 
-// 6. Base Routes & API Mounting
+// 6. Database Connection Middleware (ensures connection in serverless environment)
+let isSeeded = false;
+
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    // In Vercel serverless, run lazy initial seed once on cold start
+    if (process.env.VERCEL && !isSeeded) {
+      isSeeded = true;
+      Promise.all([
+        seedAdminUser(),
+        seedInitialProducts(),
+        seedInitialProjects(),
+        seedInitialGallery(),
+      ]).catch((err) => console.warn('[Lazy Seed Warning]', err.message));
+    }
+    next();
+  } catch (err) {
+    console.error('[DB Request Error]', err);
+    next(new AppError('Database connection unavailable. Please verify MongoDB Atlas connection.', 503));
+  }
+});
+
+// 7. Base Routes & API Mounting
 app.get('/', (req, res) => {
   res.json({
     service: 'NathanIndustries Industrial Machinery & Infrastructure Platform',
@@ -111,15 +156,15 @@ app.use('/api/inquiries', inquiryRoutes);
 app.use('/api/quotes', quoteRoutes);
 app.use('/api/users', userRoutes);
 
-// 7. Unhandled Route Catcher
+// 8. Unhandled Route Catcher
 app.all('*', (req, res, next) => {
   next(new AppError(`Endpoint ${req.method} ${req.originalUrl} not found on this server`, 404));
 });
 
-// 8. Global Centralized Error Handler
+// 9. Global Centralized Error Handler
 app.use(errorHandler);
 
-// Server Bootstrap
+// Standalone Server Bootstrap (running locally with node/nodemon, NOT Vercel serverless)
 const startServer = async () => {
   await connectDB();
 
@@ -152,6 +197,9 @@ const startServer = async () => {
   });
 };
 
-startServer();
+// Only listen on port in standalone environment, not inside Vercel serverless function
+if (!process.env.VERCEL) {
+  startServer();
+}
 
 export default app;
