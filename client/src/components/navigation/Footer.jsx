@@ -66,7 +66,7 @@ export const Footer = () => {
                   <div className="font-black text-white text-lg tracking-tight">
                     NATHAN <span className="text-red-500">INDUSTRIES</span>
                   </div>
-                  <div className="text-[10px] text-slate-400 font-mono">Precision Heavy Engineering</div>
+                  <div className="text-[10px] text-slate-400 font-mono">Heavy Engineering Works</div>
                 </div>
               </Link>
 

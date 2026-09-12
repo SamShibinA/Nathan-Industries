@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   HiArrowRight, 
@@ -12,10 +12,21 @@ import { Badge } from '../common/Badge.jsx';
 import { Button } from '../common/Button.jsx';
 
 export const ProductCard = ({ product, onQuoteClick }) => {
+  const navigate = useNavigate();
+
   if (!product) return null;
 
+  const targetUrl = `/products/${product.slug || product._id}`;
+
+  const handleCardClick = () => {
+    navigate(targetUrl);
+  };
+
   return (
-    <Card className="h-full p-4 sm:p-5 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group shadow-sm relative overflow-hidden transition-all duration-200">
+    <Card 
+      onClick={handleCardClick}
+      className="h-full p-4 sm:p-5 bg-white border-slate-200 hover:border-red-500 hover:shadow-lg flex flex-col justify-between group shadow-sm relative overflow-hidden transition-all duration-200 cursor-pointer"
+    >
       <div>
         {/* Cover Visual Preview */}
         <div className="aspect-[16/10] w-full rounded-xl bg-slate-100 border border-slate-200 relative overflow-hidden flex items-center justify-center mb-3 sm:mb-4">
@@ -88,7 +99,10 @@ export const ProductCard = ({ product, onQuoteClick }) => {
         <Button
           variant="primary"
           size="sm"
-          onClick={() => onQuoteClick && onQuoteClick(product)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onQuoteClick && onQuoteClick(product);
+          }}
           icon={HiDocumentText}
           className="text-xs font-bold bg-red-600 hover:bg-red-700 text-white"
         >

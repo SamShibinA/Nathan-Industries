@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   HiPhoto, 
-  HiMagnifyingGlassPlus 
+  HiMagnifyingGlassPlus,
+  HiWrenchScrewdriver,
+  HiSparkles,
+  HiBuildingOffice2,
+  HiCpuChip,
+  HiBuildingLibrary,
+  HiShieldCheck
 } from 'react-icons/hi2';
 
 import { Container } from '../common/Container.jsx';
@@ -22,6 +28,7 @@ export const FactoryGallerySection = () => {
       desc: 'Precision machining of cast-steel crusher mainframes to micron tolerances.',
       tag: 'CNC Tooling',
       specs: '6-Meter Bed • Digital DRO',
+      icon: HiWrenchScrewdriver,
     },
     {
       id: 2,
@@ -30,6 +37,7 @@ export const FactoryGallerySection = () => {
       desc: 'Liquid manganese steel (Mn18Cr2) tapped at 1,550°C into precision sand molds.',
       tag: 'Induction Foundry',
       specs: '5-Ton Furnace • Spectro Tested',
+      icon: HiSparkles,
     },
     {
       id: 3,
@@ -38,6 +46,7 @@ export const FactoryGallerySection = () => {
       desc: 'Pre-erection alignment of primary jaw and secondary cone units prior to dispatch.',
       tag: 'Plant Assembly',
       specs: '50 MT EOT Crane Bay',
+      icon: HiBuildingOffice2,
     },
     {
       id: 4,
@@ -46,6 +55,7 @@ export const FactoryGallerySection = () => {
       desc: 'Robotic high-deposition welding on heavy structural bridge box girders.',
       tag: 'Automated SAW',
       specs: '100% Ultrasonic Flaw Tested',
+      icon: HiCpuChip,
     },
     {
       id: 5,
@@ -54,6 +64,7 @@ export const FactoryGallerySection = () => {
       desc: 'Tandem hydraulic crane erection of 48 prestressed concrete girders across active rail corridors.',
       tag: 'Bridge Infrastructure',
       specs: '720m Total Span Project',
+      icon: HiBuildingLibrary,
     },
     {
       id: 6,
@@ -62,8 +73,11 @@ export const FactoryGallerySection = () => {
       desc: 'Chemical assay and charpy impact testing verifying hardness and alloy integrity.',
       tag: 'QA Testing',
       specs: 'ISO 17025 Compliant Lab',
+      icon: HiShieldCheck,
     },
   ];
+
+  const ModalIcon = selectedItem?.icon || HiPhoto;
 
   return (
     <section className="py-16 bg-slate-50 border-b border-slate-200">
@@ -76,57 +90,60 @@ export const FactoryGallerySection = () => {
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {galleryItems.map((item) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, scale: 0.98 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35 }}
-            >
-              <Card
-                className="p-3.5 sm:p-4 bg-white border-slate-200 group cursor-pointer hover:border-red-400 hover:shadow-md flex flex-col justify-between h-full"
-                onClick={() => setSelectedItem(item)}
+          {galleryItems.map((item) => {
+            const Icon = item.icon || HiPhoto;
+            return (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, scale: 0.98 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.35 }}
               >
-                {/* Visual Area */}
-                <div>
-                  <div className="aspect-video w-full rounded-xl bg-slate-100 border border-slate-200 flex flex-col items-center justify-center p-3 sm:p-4 relative overflow-hidden group-hover:border-red-400 transition-colors">
-                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center mb-2 group-hover:scale-105 group-hover:bg-red-600 group-hover:text-white transition-all shadow-sm">
-                      <Icon className="w-5 h-5" />
+                <Card
+                  className="p-3.5 sm:p-4 bg-white border-slate-200 group cursor-pointer hover:border-red-400 hover:shadow-md flex flex-col justify-between h-full"
+                  onClick={() => setSelectedItem(item)}
+                >
+                  {/* Visual Area */}
+                  <div>
+                    <div className="aspect-video w-full rounded-xl bg-slate-100 border border-slate-200 flex flex-col items-center justify-center p-3 sm:p-4 relative overflow-hidden group-hover:border-red-400 transition-colors">
+                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center mb-2 group-hover:scale-105 group-hover:bg-red-600 group-hover:text-white transition-all shadow-sm">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      
+                      <span className="text-[11px] sm:text-xs font-mono font-bold text-slate-800 group-hover:text-red-600 text-center px-1">
+                        {item.title}
+                      </span>
+
+                      {/* Hover Zoom Overlay */}
+                      <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white text-xs font-bold">
+                        <HiMagnifyingGlassPlus className="w-4 h-4 text-red-400" />
+                        <span>View Division Details</span>
+                      </div>
                     </div>
-                    
-                    <span className="text-[11px] sm:text-xs font-mono font-bold text-slate-800 group-hover:text-red-600 text-center px-1">
+
+                    <div className="mt-3 sm:mt-4 flex items-center justify-between">
+                      <Badge variant="red" size="sm">{item.tag}</Badge>
+                      <span className="text-[10px] sm:text-[11px] font-mono text-slate-500">{item.category}</span>
+                    </div>
+
+                    <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors mt-2 mb-1">
                       {item.title}
-                    </span>
+                    </h3>
 
-                    {/* Hover Zoom Overlay */}
-                    <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white text-xs font-bold">
-                      <HiMagnifyingGlassPlus className="w-4 h-4 text-red-400" />
-                      <span>View Division Details</span>
-                    </div>
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      {item.desc}
+                    </p>
                   </div>
 
-                  <div className="mt-3 sm:mt-4 flex items-center justify-between">
-                    <Badge variant="red" size="sm">{item.tag}</Badge>
-                    <span className="text-[10px] sm:text-[11px] font-mono text-slate-500">{item.category}</span>
+                  <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-[10px] sm:text-[11px] text-red-600 font-mono font-bold">
+                    <span>⚙ {item.specs}</span>
+                    <span className="text-slate-500 group-hover:text-red-600 transition-colors">Inspect →</span>
                   </div>
-
-                  <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors mt-2 mb-1">
-                    {item.title}
-                  </h3>
-
-                  <p className="text-xs text-slate-600 leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
-
-                <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-[10px] sm:text-[11px] text-red-600 font-mono font-bold">
-                  <span>⚙ {item.specs}</span>
-                  <span className="text-slate-500 group-hover:text-red-600 transition-colors">Inspect →</span>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
+                </Card>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Lightbox Detail Modal */}
@@ -141,7 +158,7 @@ export const FactoryGallerySection = () => {
               <div className="aspect-video w-full rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center p-6 text-center">
                 <div className="flex flex-col items-center gap-3">
                   <div className="w-14 h-14 rounded-2xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center shadow-sm">
-                    <HiPhoto className="w-7 h-7" />
+                    <ModalIcon className="w-7 h-7" />
                   </div>
                   <div className="text-sm font-bold text-slate-900">{selectedItem.title}</div>
                   <Badge variant="red" size="md">{selectedItem.tag}</Badge>

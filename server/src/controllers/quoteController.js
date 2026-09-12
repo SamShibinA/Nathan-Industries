@@ -8,13 +8,24 @@ import { AppError } from '../utils/AppError.js';
  * @access  Private
  */
 export const createQuote = asyncHandler(async (req, res) => {
-  const { product, quantity, requirement, location, budget, timeline } = req.body;
+  let { product, quantity, requirement, location, budget, timeline, targetCapacity, feedMaterial, notes } = req.body;
 
-  if (!product || !quantity || !requirement || !location) {
+  if (!product) {
     return res.status(400).json({
       success: false,
-      message: 'Please provide product, quantity, requirement, and location.',
+      message: 'Please provide product name or equipment model.',
     });
+  }
+
+  quantity = (quantity && String(quantity).trim()) || '1 Unit';
+  location = (location && String(location).trim()) || req.body.siteLocation || 'Quarry / Plant Site Location';
+
+  if (!requirement || !String(requirement).trim()) {
+    const parts = [];
+    if (targetCapacity) parts.push(`Target Capacity: ${targetCapacity}`);
+    if (feedMaterial) parts.push(`Feed Material: ${feedMaterial}`);
+    if (notes) parts.push(`Specifications: ${notes}`);
+    requirement = parts.length > 0 ? parts.join(' | ') : 'Technical equipment quotation & CAD drawing requested.';
   }
 
   const quote = await Quote.create({

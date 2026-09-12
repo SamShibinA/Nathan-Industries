@@ -33,6 +33,7 @@ export const ProductDetailPage = () => {
 
   // Modals
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
+  const [selectedQuoteProduct, setSelectedQuoteProduct] = useState(null);
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [activeImageIdx, setActiveImageIdx] = useState(0);
 
@@ -42,10 +43,12 @@ export const ProductDetailPage = () => {
       setError(null);
       try {
         const res = await productService.getProductBySlugOrId(slug);
-        setProduct(res.data?.product || null);
-        setRelated(res.data?.relatedProducts || []);
+        const fetchedProduct = res?.product || res?.data?.product || (res && !res.data ? res : null);
+        const fetchedRelated = res?.relatedProducts || res?.data?.relatedProducts || [];
+        setProduct(fetchedProduct);
+        setRelated(fetchedRelated);
       } catch (err) {
-        setError(err.message || 'Failed to load product specifications');
+        setError(err?.message || 'Failed to load product specifications');
       } finally {
         setLoading(false);
       }
@@ -84,6 +87,65 @@ export const ProductDetailPage = () => {
     product.coverImage,
     ...(product.images || []),
   ].filter(Boolean);
+
+  // Normalize custom specifications if present
+  const customSpecs = Array.isArray(product.specifications)
+    ? product.specifications
+        .filter((s) => s && (s.key || s.name))
+        .map((s) => ({
+          key: s.key || s.name,
+          value: s.value || s.val || '',
+        }))
+    : product.specifications && typeof product.specifications === 'object'
+    ? Object.entries(product.specifications).map(([key, val]) => ({
+        key: key.replace(/([A-Z])/g, ' $1'),
+        value: typeof val === 'object' ? JSON.stringify(val) : String(val),
+      }))
+    : [];
+
+  // Core engineering specification benchmarks
+  const coreEngineeringSpecs = [
+    { key: 'Equipment Classification', value: product.category?.replace(/-/g, ' ').toUpperCase() || 'HEAVY MACHINERY' },
+    { key: 'Model / Series Code', value: product.modelNumber || 'Heavy Duty Series' },
+    { key: 'Production Capacity Range', value: product.capacity || 'Customizable (50 - 800 TPH)' },
+    { key: 'Drive Motor & Electric Rating', value: product.power || 'Electric / Dual Drive' },
+    { key: 'Maximum Feed Size Allowed', value: product.feedSize && product.feedSize !== 'N/A' ? product.feedSize : 'Engineered per quarry geology' },
+    { key: 'Discharge / Finished Output Range', value: product.outputSize && product.outputSize !== 'N/A' ? product.outputSize : 'Hydraulically adjustable CSS' },
+    { key: 'Heavy Casting Metallurgy', value: 'High Manganese Mn18Cr2 / Cast Steel Frame' },
+    { key: 'Standards Compliance & QA', value: 'ISO 9001:2015 & IS 383 Heavy Engineering' },
+    { key: 'Drive Mechanism', value: 'V-Belt / Planetary Gearbox Transmission' },
+    { key: 'Manufacturing Plant Location', value: 'Nathan Industries Heavy Works, Tamil Nadu, India' },
+  ];
+
+  // Merge so user ALWAYS has full specs
+  const allSpecs = [
+    ...coreEngineeringSpecs.filter(cs => !customSpecs.some(c => c.key.toLowerCase() === cs.key.toLowerCase())),
+    ...customSpecs,
+  ];
+
+  // Default industry features if none in DB
+  const displayFeatures = (product.features && product.features.length > 0)
+    ? product.features
+    : [
+        'Heavy-duty cast steel mainframe stress-relieved for maximum shock absorption',
+        'Large diameter forged alloy steel eccentric shaft with spherical roller bearings',
+        'Hydraulic or mechanical wedge CSS adjustment for rapid gap setting',
+        'Precision machined toggle plate mechanism with built-in overload protection',
+        'Reversible high-manganese (Mn18Cr2) jaw / cone wear plates for doubled service life',
+        'Modular pre-assembled skid frame for simplified on-site civil commissioning',
+      ];
+
+  // Default industry applications if none in DB
+  const displayApplications = (product.applications && product.applications.length > 0)
+    ? product.applications
+    : [
+        'Hard rock granite, basalt, and river gravel primary & secondary crushing',
+        'Manufactured sand (M-Sand) and plastering sand (P-Sand) generation',
+        'Commercial aggregate processing for Ready-Mix Concrete (RMC) batching plants',
+        'National Highway Authority of India (NHAI) road base and GSB preparation',
+        'Railway ballast production adhering strictly to Southern Railways guidelines',
+        'Mining, metallurgical slag reduction, and heavy infrastructure earthworks',
+      ];
 
   return (
     <div className="py-10 bg-slate-50/70 min-h-screen text-slate-700">
@@ -199,7 +261,10 @@ export const ProductDetailPage = () => {
               <Button
                 variant="primary"
                 size="lg"
-                onClick={() => setQuoteModalOpen(true)}
+                onClick={() => {
+                  setSelectedQuoteProduct(product);
+                  setQuoteModalOpen(true);
+                }}
                 icon={HiDocumentText}
                 className="w-full sm:w-auto font-bold text-xs uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-600/20"
               >
@@ -228,63 +293,57 @@ export const ProductDetailPage = () => {
         </div>
 
         {/* Dynamic Key-Value Specifications Matrix */}
-        {product.specifications && Object.keys(product.specifications).length > 0 && (
-          <div className="mb-12">
-            <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-4 pb-2 border-b border-slate-200 flex items-center gap-2">
-              <HiBolt className="w-5 h-5 text-red-600" />
-              <span>Full Engineering Specifications</span>
-            </h3>
+        <div className="mb-12">
+          <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-4 pb-2 border-b border-slate-200 flex items-center gap-2">
+            <HiBolt className="w-5 h-5 text-red-600" />
+            <span>Full Engineering Specifications & Technical Datasheet</span>
+          </h3>
 
-            <Card className="p-0 bg-white border-slate-200 overflow-hidden shadow-sm">
-              <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200">
-                {Object.entries(product.specifications).map(([key, val]) => (
-                  <div key={key} className="p-3 sm:p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-                    <span className="font-semibold text-slate-600 capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
-                    <span className="font-mono font-bold text-slate-900 text-right">{val}</span>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          </div>
-        )}
+          <Card className="p-0 bg-white border-slate-200 overflow-hidden shadow-sm">
+            <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200">
+              {allSpecs.map((spec, idx) => (
+                <div key={idx} className="p-3 sm:p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+                  <span className="font-semibold text-slate-600 capitalize">{spec.key}</span>
+                  <span className="font-mono font-bold text-slate-900 text-right max-w-[55%] truncate">{spec.value}</span>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </div>
 
         {/* Features & Applications */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-12">
           {/* Features */}
-          {product.features?.length > 0 && (
-            <Card className="p-4 sm:p-6 bg-white border-slate-200">
-              <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
-                <HiShieldCheck className="w-5 h-5 text-emerald-600" />
-                <span>Heavy-Duty Construction Features</span>
-              </h3>
-              <ul className="flex flex-col gap-2.5 text-xs text-slate-600">
-                {product.features.map((feat, i) => (
-                  <li key={i} className="flex items-start gap-2.5">
-                    <HiCheckCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
-                    <span>{feat}</span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
-          )}
+          <Card className="p-4 sm:p-6 bg-white border-slate-200 shadow-sm">
+            <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <HiShieldCheck className="w-5 h-5 text-emerald-600" />
+              <span>Heavy-Duty Construction Features</span>
+            </h3>
+            <ul className="flex flex-col gap-2.5 text-xs text-slate-600">
+              {displayFeatures.map((feat, i) => (
+                <li key={i} className="flex items-start gap-2.5">
+                  <HiCheckCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+                  <span>{feat}</span>
+                </li>
+              ))}
+            </ul>
+          </Card>
 
           {/* Applications */}
-          {product.applications?.length > 0 && (
-            <Card className="p-4 sm:p-6 bg-white border-slate-200">
-              <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
-                <HiCpuChip className="w-5 h-5 text-sky-600" />
-                <span>Industrial Applications</span>
-              </h3>
-              <ul className="flex flex-col gap-2.5 text-xs text-slate-600">
-                {product.applications.map((app, i) => (
-                  <li key={i} className="flex items-start gap-2.5">
-                    <HiCheckCircle className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-                    <span>{app}</span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
-          )}
+          <Card className="p-4 sm:p-6 bg-white border-slate-200 shadow-sm">
+            <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <HiCpuChip className="w-5 h-5 text-sky-600" />
+              <span>Industrial Applications</span>
+            </h3>
+            <ul className="flex flex-col gap-2.5 text-xs text-slate-600">
+              {displayApplications.map((app, i) => (
+                <li key={i} className="flex items-start gap-2.5">
+                  <HiCheckCircle className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                  <span>{app}</span>
+                </li>
+              ))}
+            </ul>
+          </Card>
         </div>
 
         {/* Related Machinery Lineup */}
@@ -298,8 +357,8 @@ export const ProductDetailPage = () => {
                 <ProductCard
                   key={rel._id}
                   product={rel}
-                  onQuoteClick={() => {
-                    setSelectedProduct(rel);
+                  onQuoteClick={(prod) => {
+                    setSelectedQuoteProduct(prod || rel);
                     setQuoteModalOpen(true);
                   }}
                 />
@@ -312,7 +371,7 @@ export const ProductDetailPage = () => {
         <QuoteModal
           isOpen={quoteModalOpen}
           onClose={() => setQuoteModalOpen(false)}
-          product={product}
+          product={selectedQuoteProduct || product}
         />
 
         <ImageGalleryModal

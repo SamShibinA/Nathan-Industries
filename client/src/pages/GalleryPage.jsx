@@ -241,6 +241,7 @@ export const GalleryPage = () => {
           images={imageUrls}
           initialIndex={activeItemIndex}
           title={items[activeItemIndex]?.title}
+          items={items}
         />
       </Container>
     </div>

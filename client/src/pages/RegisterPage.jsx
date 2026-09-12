@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { 
   HiUser, 
   HiBuildingOffice2, 
@@ -39,6 +39,7 @@ export const RegisterPage = () => {
   const { register } = useAuth();
   const { showSuccess, showError } = useToast();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -51,7 +52,10 @@ export const RegisterPage = () => {
     try {
       await register(formData);
       showSuccess('Corporate account registered successfully!');
-      navigate('/');
+      const fromPath = location.state?.from?.pathname
+        ? `${location.state.from.pathname}${location.state.from.search || ''}`
+        : null;
+      navigate(fromPath || '/');
     } catch (err) {
       showError(err.message || 'Registration failed');
     } finally {

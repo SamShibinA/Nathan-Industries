@@ -169,17 +169,20 @@ export const createProject = asyncHandler(async (req, res, next) => {
 
   // Files processed from Sharp middleware
   let coverImage = req.processedProjectFiles?.coverImage || '';
+  const beforeImages = req.processedProjectFiles?.beforeImages || [];
+  const duringImages = req.processedProjectFiles?.duringImages || [];
+  const afterImages = req.processedProjectFiles?.afterImages || [];
   const galleryImages = req.processedProjectFiles?.galleryImages || [];
   const documents = req.processedProjectFiles?.documents || [];
 
-  if (galleryImages.length > 0) {
-    const newItems = galleryImages.map((imgUrl) => ({
-      url: imgUrl,
-      stage: 'during',
-      caption: '',
-    }));
-    parsedGallery = [...parsedGallery, ...newItems];
-  }
+  const stageItems = [
+    ...beforeImages.map((url) => ({ url, stage: 'before', caption: '' })),
+    ...duringImages.map((url) => ({ url, stage: 'during', caption: '' })),
+    ...afterImages.map((url) => ({ url, stage: 'after', caption: '' })),
+    ...galleryImages.map((url) => ({ url, stage: 'during', caption: '' })),
+  ];
+
+  parsedGallery = [...parsedGallery, ...stageItems];
 
   if (!coverImage && parsedGallery.length > 0) {
     coverImage = parsedGallery[0].url;
@@ -247,13 +250,21 @@ export const updateProject = asyncHandler(async (req, res, next) => {
     updates.coverImage = req.processedProjectFiles.coverImage;
   }
 
-  if (req.processedProjectFiles?.galleryImages && req.processedProjectFiles.galleryImages.length > 0) {
-    const newItems = req.processedProjectFiles.galleryImages.map((imgUrl) => ({
-      url: imgUrl,
-      stage: 'during',
-      caption: '',
-    }));
-    updates.gallery = [...(project.gallery || []), ...newItems];
+  let existingGallery = updates.gallery !== undefined ? updates.gallery : (project.gallery || []);
+  const beforeImages = req.processedProjectFiles?.beforeImages || [];
+  const duringImages = req.processedProjectFiles?.duringImages || [];
+  const afterImages = req.processedProjectFiles?.afterImages || [];
+  const galleryImages = req.processedProjectFiles?.galleryImages || [];
+
+  const stageItems = [
+    ...beforeImages.map((url) => ({ url, stage: 'before', caption: '' })),
+    ...duringImages.map((url) => ({ url, stage: 'during', caption: '' })),
+    ...afterImages.map((url) => ({ url, stage: 'after', caption: '' })),
+    ...galleryImages.map((url) => ({ url, stage: 'during', caption: '' })),
+  ];
+
+  if (stageItems.length > 0 || updates.gallery !== undefined) {
+    updates.gallery = [...existingGallery, ...stageItems];
   }
 
   if (req.processedProjectFiles?.documents && req.processedProjectFiles.documents.length > 0) {

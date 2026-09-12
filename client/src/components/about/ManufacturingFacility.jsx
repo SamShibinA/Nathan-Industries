@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   HiWrenchScrewdriver, 
@@ -13,8 +13,11 @@ import { Container } from '../common/Container.jsx';
 import { SectionHeading } from '../common/SectionHeading.jsx';
 import { Card } from '../common/Card.jsx';
 import { Badge } from '../common/Badge.jsx';
+import { Modal } from '../common/Modal.jsx';
 
 export const ManufacturingFacility = () => {
+  const [selectedDivision, setSelectedDivision] = useState(null);
+
   const facilityStats = [
     { label: 'Plant Land Area', val: '15 Acres', sub: 'Dedicated Industrial Zone' },
     { label: 'Covered Workshop', val: '120,000 Sq.Ft', sub: 'Climate-controlled bays' },
@@ -107,7 +110,10 @@ export const ManufacturingFacility = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: idx * 0.06 }}
               >
-                <Card className="h-full p-4 sm:p-6 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group">
+                <Card 
+                  onClick={() => setSelectedDivision(div)}
+                  className="h-full p-4 sm:p-6 bg-white border-slate-200 hover:border-red-500 hover:shadow-lg flex flex-col justify-between group cursor-pointer transition-all duration-200"
+                >
                   <div>
                     <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-red-50 border border-red-200 text-red-600 flex items-center justify-center mb-3 group-hover:scale-105 group-hover:bg-red-600 group-hover:text-white transition-all shadow-sm">
                       <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -122,16 +128,38 @@ export const ManufacturingFacility = () => {
                     </p>
                   </div>
 
-                  <div className="pt-3 border-t border-slate-200">
-                    <span className="text-[10px] sm:text-[11px] font-mono font-bold text-red-600 block">
-                      ⚡ {div.specs}
-                    </span>
+                  <div className="pt-3 border-t border-slate-200 flex items-center justify-between text-[10px] sm:text-[11px] font-mono font-bold">
+                    <span className="text-red-600">⚡ {div.specs}</span>
+                    <span className="text-slate-400 group-hover:text-red-600 transition-colors">Inspect →</span>
                   </div>
                 </Card>
               </motion.div>
             );
           })}
         </div>
+
+        {/* Division Detail Modal */}
+        <Modal
+          isOpen={!!selectedDivision}
+          onClose={() => setSelectedDivision(null)}
+          title={selectedDivision?.title}
+          subtitle="Specialized Heavy Manufacturing Division"
+        >
+          {selectedDivision && (
+            <div className="flex flex-col gap-4 text-xs text-slate-700">
+              <div className="flex items-center gap-3 p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700">
+                {React.createElement(selectedDivision.icon, { className: "w-6 h-6 flex-shrink-0 text-red-600" })}
+                <span className="font-mono font-bold text-xs">{selectedDivision.specs}</span>
+              </div>
+              <p className="leading-relaxed text-slate-600">
+                {selectedDivision.desc}
+              </p>
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-500">
+                ISO 9001:2015 certified heavy engineering division equipped with digital DROs, ultrasonic NDT calibration, and overhead tandem cranes.
+              </div>
+            </div>
+          )}
+        </Modal>
       </Container>
     </section>
   );

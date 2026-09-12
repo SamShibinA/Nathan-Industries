@@ -22,6 +22,7 @@ import { seedInitialProjects } from './controllers/projectController.js';
 import { seedInitialGallery } from './controllers/galleryController.js';
 import inquiryRoutes from './routes/inquiryRoutes.js';
 import quoteRoutes from './routes/quoteRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -96,6 +97,7 @@ app.get('/', (req, res) => {
       gallery: '/api/gallery',
       inquiries: '/api/inquiries',
       quotes: '/api/quotes',
+      users: '/api/users',
     },
   });
 });
@@ -107,6 +109,7 @@ app.use('/api/projects', projectRoutes);
 app.use('/api/gallery', galleryRoutes);
 app.use('/api/inquiries', inquiryRoutes);
 app.use('/api/quotes', quoteRoutes);
+app.use('/api/users', userRoutes);
 
 // 7. Unhandled Route Catcher
 app.all('*', (req, res, next) => {

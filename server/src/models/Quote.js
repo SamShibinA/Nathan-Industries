@@ -62,7 +62,12 @@ quoteSchema.pre('save', async function (next) {
   if (this.isNew && !this.quoteNumber) {
     const year = new Date().getFullYear();
     const count = await mongoose.model('Quote').countDocuments();
-    this.quoteNumber = `RFQ-${year}-${String(count + 1).padStart(3, '0')}`;
+    let num = `RFQ-${year}-${String(count + 1).padStart(3, '0')}`;
+    const exists = await mongoose.model('Quote').findOne({ quoteNumber: num });
+    if (exists) {
+      num = `RFQ-${year}-${String(count + 1).padStart(3, '0')}-${Math.floor(100 + Math.random() * 900)}`;
+    }
+    this.quoteNumber = num;
   }
   next();
 });

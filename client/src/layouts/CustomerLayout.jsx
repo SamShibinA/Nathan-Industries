@@ -17,7 +17,8 @@ import { useAuth } from '../context/AuthContext.jsx';
 export const CustomerLayout = () => {
   const location = useLocation();
   const { user, logout } = useAuth();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  // Menu starts in open state on phone screens until explicitly toggled closed
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(true);
 
   const navItems = [
     { title: 'Dashboard Overview', to: '/dashboard', icon: HiChartBarSquare },
@@ -58,6 +59,7 @@ export const CustomerLayout = () => {
                 <span className="text-red-600">{currentItem.title}</span>
               </div>
               <button
+                type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="p-1.5 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 hover:text-red-600 text-xs font-bold flex items-center gap-1"
                 aria-label="Toggle Portal Menu"
@@ -67,7 +69,7 @@ export const CustomerLayout = () => {
               </button>
             </div>
 
-            {/* Nav links (Always visible on desktop, collapsible on mobile) */}
+            {/* Nav links (Always visible on desktop, open on mobile until closed) */}
             <nav className={`${mobileMenuOpen ? 'flex' : 'hidden'} lg:flex flex-col gap-1 mt-3 lg:mt-0`}>
               {navItems.map((item, idx) => {
                 const Icon = item.icon;
@@ -77,7 +79,6 @@ export const CustomerLayout = () => {
                   <Link
                     key={idx}
                     to={item.to}
-                    onClick={() => setMobileMenuOpen(false)}
                     className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
                       isActive
                         ? 'bg-red-600 text-white shadow-md shadow-red-600/20'
@@ -95,7 +96,6 @@ export const CustomerLayout = () => {
                 <div className="mt-3 pt-3 border-t border-slate-100">
                   <Link
                     to="/admin"
-                    onClick={() => setMobileMenuOpen(false)}
                     className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-50 hover:bg-red-50 text-slate-700 hover:text-red-600 text-xs font-bold transition-colors"
                   >
                     <HiBuildingOffice2 className="w-4 h-4 text-red-600" />
@@ -104,9 +104,10 @@ export const CustomerLayout = () => {
                 </div>
               )}
 
-              {/* Sign Out Button */}
-              <div className="mt-3 pt-3 border-t border-slate-100">
+              {/* Sign Out Button - Hidden on phone screens */}
+              <div className="hidden lg:block mt-3 pt-3 border-t border-slate-100">
                 <button
+                  type="button"
                   onClick={logout}
                   className="flex items-center gap-2 px-3 py-2 w-full rounded-xl text-xs font-semibold text-rose-600 hover:bg-rose-50 transition-colors text-left"
                 >

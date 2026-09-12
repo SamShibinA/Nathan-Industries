@@ -42,8 +42,8 @@ export const App = () => {
   return (
     <ThemeProvider>
       <ToastProvider>
-        <AuthProvider>
-          <BrowserRouter>
+        <BrowserRouter>
+          <AuthProvider>
             <Routes>
               {/* Public Website & Integrated Portals (Wrapped in MainLayout) */}
               <Route path="/" element={<MainLayout />}>
@@ -103,8 +103,8 @@ export const App = () => {
                 <Route path="reset-password/:resetToken" element={<ResetPasswordPage />} />
               </Route>
             </Routes>
-          </BrowserRouter>
-        </AuthProvider>
+          </AuthProvider>
+        </BrowserRouter>
       </ToastProvider>
     </ThemeProvider>
   );

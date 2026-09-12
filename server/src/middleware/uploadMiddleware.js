@@ -53,6 +53,9 @@ export const uploadProductImages = upload.fields([
 // 2. Configure upload fields for Project forms
 export const uploadProjectFiles = upload.fields([
   { name: 'coverImage', maxCount: 1 },
+  { name: 'beforeImages', maxCount: 10 },
+  { name: 'duringImages', maxCount: 10 },
+  { name: 'afterImages', maxCount: 10 },
   { name: 'galleryImages', maxCount: 15 },
   { name: 'documents', maxCount: 5 },
 ]);
@@ -131,45 +134,56 @@ export const processProjectFiles = asyncHandler(async (req, res, next) => {
 
   req.processedProjectFiles = {
     coverImage: null,
+    beforeImages: [],
+    duringImages: [],
+    afterImages: [],
     galleryImages: [],
     documents: [],
   };
 
-  // 1. Process Project Cover Image
-  if (req.files.coverImage && req.files.coverImage[0]) {
-    const file = req.files.coverImage[0];
-    const optimizedBuffer = await sharp(file.buffer)
-      .resize(1800, 1200, { fit: 'inside', withoutEnlargement: true })
-      .webp({ quality: 85, effort: 4 })
-      .toBuffer();
-
-    const uploadResult = await uploadStreamToCloudinary(optimizedBuffer, {
-      folder: 'nathan_industries/projects',
-      resource_type: 'image',
-    });
-
-    req.processedProjectFiles.coverImage = uploadResult.secure_url;
-  }
-
-  // 2. Process Project Gallery Images
-  if (req.files.galleryImages && req.files.galleryImages.length > 0) {
-    for (let i = 0; i < req.files.galleryImages.length; i++) {
-      const file = req.files.galleryImages[i];
+  // Helper to optimize and upload a list of image files
+  const processImageGroup = async (fileList, folder = 'nathan_industries/projects') => {
+    const urls = [];
+    if (!fileList || fileList.length === 0) return urls;
+    for (let i = 0; i < fileList.length; i++) {
+      const file = fileList[i];
       const optimizedBuffer = await sharp(file.buffer)
         .resize(1800, 1200, { fit: 'inside', withoutEnlargement: true })
         .webp({ quality: 85, effort: 4 })
         .toBuffer();
 
       const uploadResult = await uploadStreamToCloudinary(optimizedBuffer, {
-        folder: 'nathan_industries/projects',
+        folder,
         resource_type: 'image',
       });
-
-      req.processedProjectFiles.galleryImages.push(uploadResult.secure_url);
+      urls.push(uploadResult.secure_url);
     }
+    return urls;
+  };
+
+  // 1. Process Project Cover Image
+  if (req.files.coverImage && req.files.coverImage[0]) {
+    const [coverUrl] = await processImageGroup([req.files.coverImage[0]]);
+    req.processedProjectFiles.coverImage = coverUrl || null;
   }
 
-  // 3. Process Project Documents / PDFs
+  // 2. Process Before, During, and After Stage Images
+  if (req.files.beforeImages && req.files.beforeImages.length > 0) {
+    req.processedProjectFiles.beforeImages = await processImageGroup(req.files.beforeImages);
+  }
+  if (req.files.duringImages && req.files.duringImages.length > 0) {
+    req.processedProjectFiles.duringImages = await processImageGroup(req.files.duringImages);
+  }
+  if (req.files.afterImages && req.files.afterImages.length > 0) {
+    req.processedProjectFiles.afterImages = await processImageGroup(req.files.afterImages);
+  }
+
+  // 3. Process Generic Project Gallery Images (backward compatibility)
+  if (req.files.galleryImages && req.files.galleryImages.length > 0) {
+    req.processedProjectFiles.galleryImages = await processImageGroup(req.files.galleryImages);
+  }
+
+  // 4. Process Project Documents / PDFs
   if (req.files.documents && req.files.documents.length > 0) {
     for (let i = 0; i < req.files.documents.length; i++) {
       const file = req.files.documents[i];

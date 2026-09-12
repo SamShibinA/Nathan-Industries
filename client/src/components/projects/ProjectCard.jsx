@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   HiMapPin, 
   HiBuildingOffice2, 
@@ -11,10 +11,21 @@ import { Card } from '../common/Card.jsx';
 import { Badge } from '../common/Badge.jsx';
 
 export const ProjectCard = ({ project }) => {
+  const navigate = useNavigate();
+
   if (!project) return null;
 
+  const targetUrl = `/projects/${project.slug || project._id}`;
+
+  const handleCardClick = () => {
+    navigate(targetUrl);
+  };
+
   return (
-    <Card className="h-full p-4 sm:p-5 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group shadow-sm relative overflow-hidden transition-all duration-200">
+    <Card 
+      onClick={handleCardClick}
+      className="h-full p-4 sm:p-5 bg-white border-slate-200 hover:border-red-500 hover:shadow-lg flex flex-col justify-between group shadow-sm relative overflow-hidden transition-all duration-200 cursor-pointer"
+    >
       <div>
         {/* Cover Preview Image */}
         <div className="aspect-[16/10] w-full rounded-xl bg-slate-100 border border-slate-200 relative overflow-hidden flex items-center justify-center mb-3 sm:mb-4">

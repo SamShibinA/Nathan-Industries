@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   HiArrowRight, 
@@ -15,6 +15,7 @@ import { Button } from '../common/Button.jsx';
 import { Badge } from '../common/Badge.jsx';
 
 export const FeaturedProductsSection = () => {
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState('all');
 
   const categories = [
@@ -25,9 +26,10 @@ export const FeaturedProductsSection = () => {
     { id: 'spares', name: 'Crusher Spares' },
   ];
 
-  const products = [
+  const defaultProducts = [
     {
       id: 'NI-CP-500',
+      slug: 'integrated-three-stage-stone-crusher-complex-ni-cp-600',
       category: 'stone-crushers',
       name: 'Integrated 3-Stage Crushing Plant (NI-CP-500)',
       capacity: '200 - 500 TPH',
@@ -39,6 +41,7 @@ export const FeaturedProductsSection = () => {
     },
     {
       id: 'NI-JC-1209',
+      slug: 'heavy-duty-primary-jaw-crusher-ni-jc-1209',
       category: 'stone-crushers',
       name: 'Heavy Duty Primary Jaw Crusher (NI-JC-1209)',
       capacity: '180 - 480 TPH',
@@ -50,6 +53,7 @@ export const FeaturedProductsSection = () => {
     },
     {
       id: 'NI-CC-400',
+      slug: 'hydraulic-multi-cylinder-cone-crusheri-ni-cc-400',
       category: 'stone-crushers',
       name: 'Hydraulic Multi-Cylinder Cone Crusher (NI-CC-400)',
       capacity: '150 - 380 TPH',
@@ -61,6 +65,7 @@ export const FeaturedProductsSection = () => {
     },
     {
       id: 'NI-VSI-950',
+      slug: 'vsi-manufactured-sand-m-sand-plant-ni-vsi-950',
       category: 'sand-plants',
       name: 'VSI M-Sand & P-Sand Plant (NI-VSI-950)',
       capacity: '100 - 250 TPH',
@@ -72,6 +77,7 @@ export const FeaturedProductsSection = () => {
     },
     {
       id: 'NI-CV-1200',
+      slug: 'heavy-industrial-overland-conveyor-system-ni-cv-1200',
       category: 'conveyors',
       name: 'Heavy Industrial Overland Conveyor (NI-CV-1200)',
       capacity: 'Up to 1,200 TPH',
@@ -83,6 +89,7 @@ export const FeaturedProductsSection = () => {
     },
     {
       id: 'NI-MN-18',
+      slug: 'high-manganese-oem-crusher-spares-liners-mn18cr2',
       category: 'spares',
       name: 'High Manganese OEM Crusher Wear Liners (Mn18Cr2)',
       capacity: 'Universal Fit',
@@ -93,6 +100,8 @@ export const FeaturedProductsSection = () => {
       tag: 'Foundry Castings',
     },
   ];
+
+  const products = defaultProducts;
 
   const filteredProducts = activeCategory === 'all'
     ? products
@@ -142,7 +151,10 @@ export const FeaturedProductsSection = () => {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
               >
-                <Card className="h-full p-4 sm:p-6 bg-white border-slate-200 hover:border-red-400 hover:shadow-md flex flex-col justify-between group relative overflow-hidden">
+                <Card 
+                  onClick={() => navigate(`/products/${p.slug || p._id || p.id}`)}
+                  className="h-full p-4 sm:p-6 bg-white border-slate-200 hover:border-red-500 hover:shadow-lg flex flex-col justify-between group relative overflow-hidden transition-all duration-200 cursor-pointer"
+                >
                   <div>
                     <div className="flex items-center justify-between mb-3">
                       <Badge variant="red" size="sm">
@@ -183,19 +195,18 @@ export const FeaturedProductsSection = () => {
                   </div>
 
                   <div className="pt-3 border-t border-slate-200 flex items-center justify-between">
-                    <Link
-                      to="/products"
-                      className="text-xs font-bold text-slate-700 hover:text-red-600 flex items-center gap-1 transition-colors"
-                    >
+                    <span className="text-xs font-bold text-slate-700 group-hover:text-red-600 flex items-center gap-1 transition-colors">
                       <span>Full Specs</span>
                       <HiArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform text-red-600" />
-                    </Link>
+                    </span>
 
-                    <Link to="/contact?type=quote">
-                      <Button variant="primary" size="sm" icon={HiDocumentText} className="text-xs font-bold bg-red-600 hover:bg-red-700 text-white">
-                        Get RFQ
-                      </Button>
-                    </Link>
+                    <div onClick={(e) => e.stopPropagation()}>
+                      <Link to="/contact?type=quote">
+                        <Button variant="primary" size="sm" icon={HiDocumentText} className="text-xs font-bold bg-red-600 hover:bg-red-700 text-white">
+                          Get RFQ
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
                 </Card>
               </motion.div>

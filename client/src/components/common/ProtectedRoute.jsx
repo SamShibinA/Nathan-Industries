@@ -8,7 +8,7 @@ import { Spinner } from './Spinner.jsx';
  * @param {Array<string>} allowedRoles - Optional array of authorized roles (e.g. ['admin', 'customer'])
  */
 export const ProtectedRoute = ({ children, allowedRoles }) => {
-  const { user, isAuthenticated, loading } = useAuth();
+  const { user, isAuthenticated, loading, isLoggingOut } = useAuth();
   const location = useLocation();
 
   if (loading) {
@@ -18,6 +18,11 @@ export const ProtectedRoute = ({ children, allowedRoles }) => {
         <p className="text-xs text-slate-400 mt-3 font-mono">Authenticating secure session...</p>
       </div>
     );
+  }
+
+  // When signing out, redirect directly to public home page
+  if (isLoggingOut) {
+    return <Navigate to="/" replace />;
   }
 
   if (!isAuthenticated) {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { 
   HiLockClosed, 
   HiEnvelope, 
@@ -22,6 +22,7 @@ export const LoginPage = () => {
   const { login } = useAuth();
   const { showSuccess, showError } = useToast();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,10 +31,14 @@ export const LoginPage = () => {
     try {
       const userData = await login({ email, password });
       showSuccess(`Welcome back, ${userData?.name || 'Administrator'}!`);
+      const fromPath = location.state?.from?.pathname
+        ? `${location.state.from.pathname}${location.state.from.search || ''}`
+        : null;
+
       if (userData?.role === 'admin') {
-        navigate('/admin');
+        navigate(fromPath && fromPath.startsWith('/admin') ? fromPath : '/admin');
       } else {
-        navigate('/');
+        navigate(fromPath || '/');
       }
     } catch (err) {
       showError(err.message || 'Invalid credentials');

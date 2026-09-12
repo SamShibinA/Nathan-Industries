@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   HiArrowRight, 
@@ -14,9 +14,11 @@ import { Button } from '../common/Button.jsx';
 import { Badge } from '../common/Badge.jsx';
 
 export const LatestProjectsSection = () => {
+  const navigate = useNavigate();
   const projects = [
     {
       id: 'rob-salem',
+      slug: '4-lane-railway-overbridge-rob-epc-erection-salem-bypass',
       type: 'Railway Overbridge',
       title: '4-Lane Railway Overbridge (ROB) EPC Erection',
       client: 'State Highways & Southern Railways JV',
@@ -28,6 +30,7 @@ export const LatestProjectsSection = () => {
     },
     {
       id: 'crusher-hosur',
+      slug: '600-tph-mega-turnkey-granite-crushing-complex-hosur',
       type: 'Crusher Plant EPC',
       title: '600 TPH Mega Turnkey Granite Crushing Complex',
       client: 'Apex Minerals & Infrastructure Ltd',
@@ -39,6 +42,7 @@ export const LatestProjectsSection = () => {
     },
     {
       id: 'msand-namakkal',
+      slug: '250-tph-dry-vsi-manufactured-sand-m-sand-facility-coimbatore',
       type: 'M-Sand Facility',
       title: '250 TPH Dry Air Classifier M-Sand & P-Sand Plant',
       client: 'Kongu Green Aggregates Ltd',
@@ -79,7 +83,10 @@ export const LatestProjectsSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
             >
-              <Card className="h-full p-4 sm:p-6 bg-slate-50 border-slate-200 hover:bg-white hover:border-red-400 hover:shadow-md flex flex-col justify-between group transition-all">
+              <Card 
+                onClick={() => navigate(`/projects/${proj.slug || proj.id}`)}
+                className="h-full p-4 sm:p-6 bg-slate-50 border-slate-200 hover:bg-white hover:border-red-500 hover:shadow-lg flex flex-col justify-between group transition-all duration-200 cursor-pointer"
+              >
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <Badge variant="red" size="sm">
@@ -117,7 +124,7 @@ export const LatestProjectsSection = () => {
 
                 <div className="pt-3 border-t border-slate-200 flex items-center justify-between">
                   <Link
-                    to="/projects"
+                    to={`/projects/${proj.slug || proj.id}`}
                     className="text-xs font-bold text-red-600 hover:text-red-700 flex items-center gap-1"
                   >
                     <span>Read Technical Review</span>

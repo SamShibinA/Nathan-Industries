@@ -1,13 +1,16 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { api } from '../services/api.js';
 import { useToast } from './ToastContext.jsx';
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(() => localStorage.getItem('nathan_auth_token') || null);
   const [loading, setLoading] = useState(true);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const { showSuccess, showError } = useToast();
 
   // Load user profile on startup if token exists
@@ -119,14 +122,20 @@ export const AuthProvider = ({ children }) => {
   }, [showSuccess, showError]);
 
   /**
-   * Logout user
+   * Logout user and redirect to the public home page
    */
   const logout = useCallback(() => {
+    setIsLoggingOut(true);
     setUser(null);
     setToken(null);
     localStorage.removeItem('nathan_auth_token');
     localStorage.removeItem('nathan_user_data');
-  }, []);
+    showSuccess('Signed out successfully.');
+    navigate('/', { replace: true });
+    setTimeout(() => {
+      setIsLoggingOut(false);
+    }, 300);
+  }, [navigate, showSuccess]);
 
   const isAuthenticated = !!token && !!user;
   const isAdmin = user?.role === 'admin';
@@ -138,6 +147,7 @@ export const AuthProvider = ({ children }) => {
         user,
         token,
         loading,
+        isLoggingOut,
         isAuthenticated,
         isAdmin,
         isCustomer,

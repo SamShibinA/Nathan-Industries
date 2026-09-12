@@ -43,10 +43,12 @@ export const ProjectDetailPage = () => {
       setError(null);
       try {
         const res = await projectService.getProjectBySlugOrId(slug);
-        setProject(res.data?.project || null);
-        setRelated(res.data?.relatedProjects || []);
+        const fetchedProject = res?.project || res?.data?.project || (res && !res.data ? res : null);
+        const fetchedRelated = res?.relatedProjects || res?.data?.relatedProjects || [];
+        setProject(fetchedProject);
+        setRelated(fetchedRelated);
       } catch (err) {
-        setError(err.message || 'Failed to load project details');
+        setError(err?.message || 'Failed to load project details');
       } finally {
         setLoading(false);
       }

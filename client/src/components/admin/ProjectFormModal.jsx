@@ -9,7 +9,10 @@ import {
   HiPlus, 
   HiTrash, 
   HiPhoto, 
-  HiCloudArrowUp 
+  HiCloudArrowUp,
+  HiXMark,
+  HiCheckCircle,
+  HiArrowUpTray
 } from 'react-icons/hi2';
 
 export const ProjectFormModal = ({ isOpen, onClose, projectToEdit, onSaved }) => {
@@ -36,10 +39,13 @@ export const ProjectFormModal = ({ isOpen, onClose, projectToEdit, onSaved }) =>
   const [scopeOfWork, setScopeOfWork] = useState(['']);
   const [machineryUsed, setMachineryUsed] = useState(['']);
 
-  // File uploads
+  // Project Media & Stage File Uploads
   const [coverImageFile, setCoverImageFile] = useState(null);
-  const [galleryFiles, setGalleryFiles] = useState([]);
+  const [beforeStageFiles, setBeforeStageFiles] = useState([]);
+  const [duringStageFiles, setDuringStageFiles] = useState([]);
+  const [afterStageFiles, setAfterStageFiles] = useState([]);
   const [documentFiles, setDocumentFiles] = useState([]);
+  const [existingGallery, setExistingGallery] = useState([]);
 
   const [loading, setLoading] = useState(false);
 
@@ -64,6 +70,12 @@ export const ProjectFormModal = ({ isOpen, onClose, projectToEdit, onSaved }) =>
 
       setScopeOfWork(projectToEdit.scopeOfWork?.length > 0 ? projectToEdit.scopeOfWork : ['']);
       setMachineryUsed(projectToEdit.machineryUsed?.length > 0 ? projectToEdit.machineryUsed : ['']);
+      setExistingGallery(projectToEdit.gallery || []);
+      setCoverImageFile(null);
+      setBeforeStageFiles([]);
+      setDuringStageFiles([]);
+      setAfterStageFiles([]);
+      setDocumentFiles([]);
     } else {
       setFormData({
         title: '',
@@ -83,11 +95,18 @@ export const ProjectFormModal = ({ isOpen, onClose, projectToEdit, onSaved }) =>
       });
       setScopeOfWork(['']);
       setMachineryUsed(['']);
+      setExistingGallery([]);
       setCoverImageFile(null);
-      setGalleryFiles([]);
+      setBeforeStageFiles([]);
+      setDuringStageFiles([]);
+      setAfterStageFiles([]);
       setDocumentFiles([]);
     }
   }, [projectToEdit, isOpen]);
+
+  const removeExistingGalleryItem = (indexToRemove) => {
+    setExistingGallery((prev) => prev.filter((_, idx) => idx !== indexToRemove));
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -133,10 +152,26 @@ export const ProjectFormModal = ({ isOpen, onClose, projectToEdit, onSaved }) =>
         data.append('coverImage', coverImageFile);
       }
 
-      if (galleryFiles.length > 0) {
-        galleryFiles.forEach((file) => {
-          data.append('galleryImages', file);
+      if (beforeStageFiles.length > 0) {
+        beforeStageFiles.forEach((file) => {
+          data.append('beforeImages', file);
         });
+      }
+
+      if (duringStageFiles.length > 0) {
+        duringStageFiles.forEach((file) => {
+          data.append('duringImages', file);
+        });
+      }
+
+      if (afterStageFiles.length > 0) {
+        afterStageFiles.forEach((file) => {
+          data.append('afterImages', file);
+        });
+      }
+
+      if (isEditing || existingGallery.length > 0) {
+        data.append('gallery', JSON.stringify(existingGallery));
       }
 
       if (documentFiles.length > 0) {
@@ -440,43 +475,215 @@ export const ProjectFormModal = ({ isOpen, onClose, projectToEdit, onSaved }) =>
           </div>
         </div>
 
-        {/* Media & Document Uploads */}
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col gap-4">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
-            Project Visuals & Document Uploads (WebP Optimized)
+        {/* Cover Image & Documents */}
+        <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col gap-3">
+          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+            <HiPhoto className="w-4 h-4 text-red-600" />
+            <span>Primary Cover Visual & Technical Documentation</span>
           </h4>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
             <div>
-              <label className="block text-slate-600 mb-1 font-semibold">Cover Image</label>
+              <label className="block text-slate-700 mb-1 font-semibold">Hero Cover Image</label>
               <input
                 type="file"
                 accept="image/*"
                 onChange={(e) => setCoverImageFile(e.target.files[0])}
-                className="w-full text-xs text-slate-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-orange-500 file:text-white"
+                className="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-red-600 file:text-white hover:file:bg-red-700 cursor-pointer"
               />
+              {projectToEdit?.coverImage && !coverImageFile && (
+                <div className="mt-2 flex items-center gap-2">
+                  <img src={projectToEdit.coverImage} alt="Current Cover" className="w-12 h-9 object-cover rounded-lg border border-slate-200" />
+                  <span className="text-[10px] text-slate-500 font-mono">Current cover active</span>
+                </div>
+              )}
             </div>
 
             <div>
-              <label className="block text-slate-600 mb-1 font-semibold">Stage Gallery Photos</label>
-              <input
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={(e) => setGalleryFiles(Array.from(e.target.files))}
-                className="w-full text-xs text-slate-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-slate-200 file:text-slate-700"
-              />
-            </div>
-
-            <div>
-              <label className="block text-slate-600 mb-1 font-semibold">Case Study PDF</label>
+              <label className="block text-slate-700 mb-1 font-semibold">Case Study Drawings / PDFs</label>
               <input
                 type="file"
                 accept="application/pdf"
                 multiple
                 onChange={(e) => setDocumentFiles(Array.from(e.target.files))}
-                className="w-full text-xs text-slate-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-slate-200 file:text-slate-700"
+                className="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-slate-200 file:text-slate-800 hover:file:bg-slate-300 cursor-pointer"
               />
+              {documentFiles.length > 0 && (
+                <span className="text-[11px] text-emerald-600 font-bold block mt-1">
+                  ✓ {documentFiles.length} PDF document(s) selected
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* 3-Stage Photo Documentation Section */}
+        <div className="p-4 rounded-2xl bg-white border border-slate-200 flex flex-col gap-4 shadow-sm">
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
+              <HiCloudArrowUp className="w-4 h-4 text-red-600" />
+              <span>Project Execution Stage Photo Visuals (Before, During & After)</span>
+            </h4>
+            <p className="text-[11px] text-slate-500 mt-0.5">
+              Upload high-resolution photography for each phase. These directly populate the Before, During, and After interactive stage filters on the case study page.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            {/* 1. Before Stage Upload */}
+            <div className="p-3.5 rounded-xl bg-amber-50/70 border border-amber-200 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-bold text-amber-900 flex items-center gap-1.5 text-xs">
+                    <span>🧱 Before Stage</span>
+                  </span>
+                  <Badge variant="warning" size="sm">Phase 1</Badge>
+                </div>
+                <p className="text-[11px] text-amber-800/80 mb-3 leading-relaxed">
+                  Initial site topography, virgin quarry ground, foundation excavation, and pre-civil alignment.
+                </p>
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={(e) => setBeforeStageFiles(Array.from(e.target.files))}
+                  className="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-600 file:text-white hover:file:bg-amber-700 cursor-pointer mb-2"
+                />
+                {beforeStageFiles.length > 0 && (
+                  <span className="text-[10px] font-bold text-amber-800 block mb-2">
+                    ✓ {beforeStageFiles.length} new Before photo(s) chosen
+                  </span>
+                )}
+              </div>
+
+              {/* Existing Before Photos (when editing) */}
+              {existingGallery.some(item => item.stage === 'before') && (
+                <div className="pt-2 border-t border-amber-200/60 mt-2">
+                  <span className="text-[10px] font-bold text-amber-800 uppercase block mb-1.5">Existing Photos:</span>
+                  <div className="flex items-center gap-2 overflow-x-auto pb-1">
+                    {existingGallery.map((item, idx) => {
+                      if (item.stage !== 'before') return null;
+                      return (
+                        <div key={idx} className="relative group/thumb flex-shrink-0">
+                          <img src={item.url} alt="Before Stage" className="w-12 h-10 object-cover rounded-lg border border-amber-300" />
+                          <button
+                            type="button"
+                            onClick={() => removeExistingGalleryItem(idx)}
+                            className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-rose-600 text-white flex items-center justify-center text-[10px] shadow"
+                            title="Remove photo"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* 2. During Stage Upload */}
+            <div className="p-3.5 rounded-xl bg-sky-50/70 border border-sky-200 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-bold text-sky-900 flex items-center gap-1.5 text-xs">
+                    <span>⚙️ During Stage</span>
+                  </span>
+                  <Badge variant="blue" size="sm">Phase 2</Badge>
+                </div>
+                <p className="text-[11px] text-sky-800/80 mb-3 leading-relaxed">
+                  Tandem crane girder launching, heavy machine pre-erection, structural welding, and assembly works.
+                </p>
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={(e) => setDuringStageFiles(Array.from(e.target.files))}
+                  className="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-sky-600 file:text-white hover:file:bg-sky-700 cursor-pointer mb-2"
+                />
+                {duringStageFiles.length > 0 && (
+                  <span className="text-[10px] font-bold text-sky-800 block mb-2">
+                    ✓ {duringStageFiles.length} new During photo(s) chosen
+                  </span>
+                )}
+              </div>
+
+              {/* Existing During Photos (when editing) */}
+              {existingGallery.some(item => item.stage === 'during' || !item.stage) && (
+                <div className="pt-2 border-t border-sky-200/60 mt-2">
+                  <span className="text-[10px] font-bold text-sky-800 uppercase block mb-1.5">Existing Photos:</span>
+                  <div className="flex items-center gap-2 overflow-x-auto pb-1">
+                    {existingGallery.map((item, idx) => {
+                      if (item.stage !== 'during' && item.stage !== 'general' && item.stage) return null;
+                      return (
+                        <div key={idx} className="relative group/thumb flex-shrink-0">
+                          <img src={item.url} alt="During Stage" className="w-12 h-10 object-cover rounded-lg border border-sky-300" />
+                          <button
+                            type="button"
+                            onClick={() => removeExistingGalleryItem(idx)}
+                            className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-rose-600 text-white flex items-center justify-center text-[10px] shadow"
+                            title="Remove photo"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* 3. After Stage Upload */}
+            <div className="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-bold text-emerald-900 flex items-center gap-1.5 text-xs">
+                    <span>🏁 After Stage</span>
+                  </span>
+                  <Badge variant="success" size="sm">Phase 3</Badge>
+                </div>
+                <p className="text-[11px] text-emerald-800/80 mb-3 leading-relaxed">
+                  Final load-tested railway overbridge, fully automated crushing plant running at capacity, and client handover.
+                </p>
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={(e) => setAfterStageFiles(Array.from(e.target.files))}
+                  className="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-emerald-600 file:text-white hover:file:bg-emerald-700 cursor-pointer mb-2"
+                />
+                {afterStageFiles.length > 0 && (
+                  <span className="text-[10px] font-bold text-emerald-800 block mb-2">
+                    ✓ {afterStageFiles.length} new After photo(s) chosen
+                  </span>
+                )}
+              </div>
+
+              {/* Existing After Photos (when editing) */}
+              {existingGallery.some(item => item.stage === 'after') && (
+                <div className="pt-2 border-t border-emerald-200/60 mt-2">
+                  <span className="text-[10px] font-bold text-emerald-800 uppercase block mb-1.5">Existing Photos:</span>
+                  <div className="flex items-center gap-2 overflow-x-auto pb-1">
+                    {existingGallery.map((item, idx) => {
+                      if (item.stage !== 'after') return null;
+                      return (
+                        <div key={idx} className="relative group/thumb flex-shrink-0">
+                          <img src={item.url} alt="After Stage" className="w-12 h-10 object-cover rounded-lg border border-emerald-300" />
+                          <button
+                            type="button"
+                            onClick={() => removeExistingGalleryItem(idx)}
+                            className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-rose-600 text-white flex items-center justify-center text-[10px] shadow"
+                            title="Remove photo"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

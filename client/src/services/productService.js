@@ -9,7 +9,7 @@ export const productService = {
 
   getProductBySlugOrId: async (slugOrId) => {
     const res = await api.get(`/products/${slugOrId}`);
-    return res.data;
+    return res?.data || res;
   },
 
   // Admin Management Endpoints

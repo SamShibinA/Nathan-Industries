@@ -53,7 +53,9 @@ export const MobileDrawer = ({ isOpen, onClose }) => {
                   <div className="font-black text-slate-900 text-base leading-none">
                     NATHAN <span className="text-red-600">INDUSTRIES</span>
                   </div>
-                  <div className="text-[10px] text-slate-500 font-mono mt-1">Heavy Engineering</div>
+                  <div className="text-[10px] text-slate-500 font-mono uppercase tracking-widest font-semibold mt-1">
+                    Heavy Engineering Works
+                  </div>
                 </div>
               </div>
 

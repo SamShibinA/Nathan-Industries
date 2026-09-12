@@ -9,7 +9,7 @@ export const projectService = {
 
   getProjectBySlugOrId: async (slugOrId) => {
     const res = await api.get(`/projects/${slugOrId}`);
-    return res.data;
+    return res?.data || res;
   },
 
   // Admin Management Endpoints
